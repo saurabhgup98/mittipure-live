@@ -91,3 +91,15 @@ comments that say which gramiyum.in markup a file copies.
 - Logged-in My Account pages: gramiyum.in's logged-in markup is unknown.
 - Wallet / multiple addresses plugins (skipped on purpose).
 - ngrok / Pantheon hosting.
+
+## Pantheon (live)
+
+- **Live:** https://live-mittipure.pantheonsite.io (also `dev-` and `test-`), site `mittipure`,
+  workspace "Professional Workspace - c6105f5c". Login OTP 123456; wp-admin user `admin` (same password as local).
+- Pantheon's git repo holds WordPress core + our theme/mu-plugins + WooCommerce, woo-razorpay,
+  wc-variations-radio-buttons, Storefront (copied from the local container). `APTI_SDK_SRC` is defined in its `wp-config.php`.
+- Terminus runs in Docker (`docker build -t mittipure-terminus scripts/pantheon`); token = `PANTHEON_MACHINE_TOKEN` in `.env`;
+  SSH key `~/.ssh/mittipure_pantheon` (RSA — Pantheon rejects ed25519). Inside the container copy the key and `chmod 600` it first.
+- Redeploy code: commit to the Pantheon repo → push to dev → `terminus env:deploy mittipure.test` / `.live`.
+- Content was copied once: local `mysqldump` → Pantheon dev MySQL, uploads → `rsync … :files/`,
+  `wp search-replace http://localhost:8081 https://dev-mittipure.pantheonsite.io`, then `env:clone-content dev test|live`.
