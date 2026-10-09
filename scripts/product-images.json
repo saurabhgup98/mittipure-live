@@ -1,0 +1,23 @@
+{
+  "_note": "Free Unsplash photos (unsplash.com/license) per product slug. Gallery image N uses photo N (wraps around). Applied by scripts/images.php.",
+  "sweet-and-snack-combo-pack": ["photo-1517244683847-7456b63c5969"],
+  "the-noodles-combo": ["photo-1585032226651-759b368d7246"],
+  "kovilpatti-kadalai-mittai": ["photo-1772984959639-54284678b805", "photo-1772985503334-62b9690905c5", "photo-1772984962612-1173533f8eb6"],
+  "nendran-banana-chips-fried-in-coconut-oil": ["photo-1762884601729-0eeeafbdfb8a", "photo-1775377262388-1fecca04b8c7", "photo-1775377262418-24c4d1c89574"],
+  "diabetic-friendly-millet-adai-mix-500g": ["photo-1768729339998-909158957162"],
+  "diabetic-friendly-millet-dosa-mix-500g": ["photo-1668236543090-82eba5ee5976"],
+  "sesame-oil-cold-pressed": ["photo-1552592074-ea7a91b851b3", "photo-1638324396229-632af05042dd", "photo-1666694890460-37ec16b0df47", "photo-1654245495489-6616a6ca252e"],
+  "groundnut-oil-cold-pressed": ["photo-1549978113-29eb25c8177f", "photo-1575399872095-9363bf262e64", "photo-1546545584-c03ac781caaf", "photo-1639070863891-a20035caf05a"],
+  "natural-red-chilli-powder-natural-milagaai-podi": ["photo-1625921133217-8d978f7872b8", "photo-1547332226-395d746d139a"],
+  "natural-turmeric-powder": ["photo-1583949885751-23b7d1909378", "photo-1768729340164-7d83fe18384d"],
+  "hing-powder-perungayam-asafoetida": ["photo-1601195496172-6efd860de307"],
+  "cane-sugar-brown-nattu-sakkarai": ["photo-1788238025855-55581a2ed354"],
+  "natural-cashews": ["photo-1726771517475-e7acdd34cd8a", "photo-1615485925873-7ecbbe90a866", "photo-1723466998040-78d7e2ef6d72"],
+  "raw-fresh-peanuts": ["photo-1724058663142-e6e1a5e89f2d"],
+  "buy-ulundhu-paruppu": ["photo-1786994060314-eccbdd13066d", "photo-1790438716406-0bf98fdab808", "photo-1788629906609-5f66704a72ef"],
+  "toor-dhal-thuvaram-paruppu": ["photo-1612869538502-b5baa439abd7", "photo-1702041357314-db5826c96f04", "photo-1787076548603-8767988b6847", "photo-1705845580041-f04ad853617f"],
+  "pure-desi-gir-cow-ghee-a2": ["photo-1573812461383-e5f8b759d12e", "photo-1707424124274-689499bbe5e9", "photo-1589985270826-4b7bb135bc9d", "photo-1589985269102-ff38adf6f00d"],
+  "pure-cow-ghee": ["photo-1691480208637-6ed63aac6694", "photo-1628519722806-70a24f128100", "photo-1745964276943-5c880fe711bb"],
+  "buy-online-organic-mappillai-samba-arisi": ["photo-1675150303909-1bb94e33132f", "photo-1594900850417-03031d41b773", "photo-1782931608912-ccda83062946"],
+  "thooyamalli-rice-traditional-rice": ["photo-1536304993881-ff6e9eefa2a6", "photo-1686820740687-426a7b9b2043", "photo-1516684732162-798a0062be99", "photo-1644131447497-8723db691320"]
+}

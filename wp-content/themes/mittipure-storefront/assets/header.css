@@ -1,0 +1,297 @@
+/*
+ * Look-alike styling for the gramiyum.in header markup in header.php.
+ * Written from scratch against their class names (GreenMart's own CSS is not copied).
+ */
+
+:root {
+	--gram-green: #00a651;
+	--gram-green-dark: #008a43;
+	--gram-ink: #212b36;
+	--gram-muted: #637381;
+	--gram-orange: #ff9f1a;
+	--gram-container: 1170px;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+	font-family: "Public Sans", sans-serif;
+	color: var(--gram-ink);
+}
+
+body {
+	font-size: 14px;
+	background: #fff;
+}
+
+/* ---------- shared Elementor-ish layout ---------- */
+
+#tbay-header .elementor-section { position: relative; }
+#tbay-header .elementor-container {
+	display: flex;
+	align-items: center;
+	max-width: var(--gram-container);
+	margin: 0 auto;
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+#tbay-header .elementor-column { display: flex; min-width: 0; }
+#tbay-header .elementor-widget-wrap { display: flex; align-items: center; flex-wrap: wrap; width: 100%; }
+#tbay-header .elementor-widget-container,
+#tbay-header .elementor-widget { width: 100%; }
+#tbay-header .w-auto { width: auto; }
+#tbay-header a { text-decoration: none; }
+#tbay-header h3 { margin: 0; }
+
+/* ---------- top bar ---------- */
+
+#tbay-header .elementor-element-6721b9c9 { background: var(--gram-green); min-height: 40px; display: flex; }
+#tbay-header .elementor-element-6721b9c9 .elementor-container { min-height: 40px; }
+#tbay-header .elementor-element-6721b9c9 .elementor-col-50 { flex: 1 1 50%; }
+#tbay-header .elementor-element-6721b9c9 .elementor-button-wrapper { text-align: left; white-space: nowrap; }
+#tbay-header .elementor-element-32df86b2 .elementor-button {
+	background: transparent;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 500;
+	padding: 0;
+	cursor: default;
+}
+
+/* ---------- logo / search / care / account / cart row ---------- */
+
+#tbay-header .elementor-element-7b9afd15 { background: #fff; }
+#tbay-header .elementor-element-7b9afd15 > .elementor-container { min-height: 108px; gap: 28px; }
+#tbay-header .elementor-element-54143db3 { flex: 0 0 190px; }
+#tbay-header .elementor-element-245d1ab { flex: 0 0 240px; }
+#tbay-header .elementor-element-288adc74 { flex: 0 0 auto; }
+#tbay-header .elementor-element-21ecf23c { flex: 0 0 auto; }
+#tbay-header .elementor-element-2c514e97 { flex: 0 0 auto; }
+#tbay-header .elementor-element-8665ded { flex: 1 1 auto; }
+
+#tbay-header .header-logo-img { display: block; width: 190px; height: auto; }
+
+#tbay-header .dgwt-wcas-search-wrapp { position: relative; width: 100%; }
+#tbay-header .dgwt-wcas-sf-wrapp { position: relative; }
+#tbay-header .dgwt-wcas-search-input {
+	width: 100%;
+	height: 48px;
+	border: 0;
+	border-radius: 30px;
+	background: #eee;
+	padding: 0 18px 0 46px;
+	font-size: 14px;
+	color: var(--gram-ink);
+	box-shadow: none;
+	outline: none;
+}
+#tbay-header .dgwt-wcas-search-input::placeholder { color: #9aa3ad; }
+#tbay-header .dgwt-wcas-search-submit {
+	position: absolute;
+	left: 14px;
+	top: 50%;
+	transform: translateY(-50%);
+	background: none;
+	border: 0;
+	padding: 0;
+	color: var(--gram-ink);
+	line-height: 0;
+}
+#tbay-header .dgwt-wcas-preloader,
+#tbay-header .dgwt-wcas-voice-search { display: none; }
+
+#tbay-header .elementor-icon-box-title { font-size: 13px; font-weight: 600; text-align: center; }
+#tbay-header .elementor-icon-box-description { margin: 2px 0 0; font-size: 13px; text-align: center; }
+#tbay-header .elementor-icon-box-description a { color: var(--gram-ink); }
+
+/* account */
+#tbay-header .account-button {
+	display: grid;
+	grid-template-columns: 22px auto;
+	column-gap: 8px;
+	align-items: center;
+	color: var(--gram-ink);
+}
+#tbay-header .title-account { grid-column: 2; font-size: 13px; font-weight: 600; }
+#tbay-header .text-account { grid-column: 2; font-size: 13px; color: var(--gram-muted); }
+#tbay-header .title-account .tb-icon-zz-za-user {
+	grid-row: 1 / span 2;
+	position: absolute;
+	margin-left: -30px;
+	margin-top: 6px;
+}
+#tbay-header .tb-icon-zz-za-user,
+#tbay-header .tb-icon-zt-cart {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: currentColor;
+	-webkit-mask: var(--icon) center / contain no-repeat;
+	mask: var(--icon) center / contain no-repeat;
+}
+#tbay-header .tb-icon-zz-za-user {
+	color: var(--gram-green);
+	--icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='7' r='5'/%3E%3Cpath d='M2 23c0-6 4.5-9 10-9s10 3 10 9z'/%3E%3C/svg%3E");
+}
+#tbay-header .tb-icon-zt-cart {
+	color: #fff;
+	--icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M1 2h4l2.7 12.4A2 2 0 0 0 9.6 16H19a2 2 0 0 0 2-1.6L23 6H6.2'/%3E%3Ccircle cx='9' cy='21' r='2'/%3E%3Ccircle cx='19' cy='21' r='2'/%3E%3C/svg%3E");
+}
+
+/* cart */
+#tbay-header .tbay-topcart { position: relative; }
+#tbay-header .tbay-topcart .dropdown-toggle {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	background: var(--gram-green);
+	color: #fff;
+	border-radius: 4px;
+	padding: 8px 14px 8px 12px;
+	column-gap: 16px;
+	min-width: 104px;
+}
+#tbay-header .tbay-topcart .cart-icon { position: relative; line-height: 0; }
+#tbay-header .wrapper-title-cart { display: grid; line-height: 1.25; }
+#tbay-header .text-cart { font-size: 13px; font-weight: 600; }
+#tbay-header .mini-cart-subtotal { font-size: 13px; color: #fff; }
+#tbay-header .mini-cart-items {
+	position: absolute;
+	top: 2px;
+	left: 22px;
+	min-width: 17px;
+	height: 17px;
+	padding: 0 4px;
+	border-radius: 50%;
+	background: var(--gram-orange);
+	color: var(--gram-ink);
+	font-size: 11px;
+	line-height: 17px;
+	text-align: center;
+}
+#tbay-header .tbay-topcart .dropdown-menu {
+	display: none;
+	position: absolute;
+	right: 0;
+	top: 100%;
+	z-index: 100;
+	width: 320px;
+	padding: 16px;
+	background: #fff;
+	border-radius: 6px;
+	box-shadow: 0 8px 28px rgba(0, 0, 0, .14);
+}
+#tbay-header .tbay-topcart:hover .dropdown-menu,
+#tbay-header .tbay-topcart:focus-within .dropdown-menu { display: block; }
+#tbay-header .cart_empty { list-style: none; margin: 0; text-align: center; }
+#tbay-header .cart_empty li + li { margin-top: 12px; }
+#tbay-header .wc-continue { background: var(--gram-green); color: #fff; border-radius: 4px; padding: 8px 16px; }
+#tbay-header .woocommerce-mini-cart { margin: 0; max-height: 300px; overflow: auto; }
+#tbay-header .woocommerce-mini-cart__buttons .button { background: var(--gram-green); color: #fff; }
+
+/* ---------- main nav row ---------- */
+
+#tbay-header .elementor-element-4b7e20b5 { background: #fff; border-bottom: 3px solid var(--gram-green); }
+#tbay-header .elementor-element-4b7e20b5 > .elementor-container { min-height: 52px; }
+#tbay-header .elementor-element-36f4f25a { flex: 1 1 auto; }
+#tbay-header .elementor-element-6fcb3678 { flex: 0 0 auto; justify-content: flex-end; }
+
+#tbay-header ul.megamenu { display: flex; list-style: none; margin: 0; padding: 0; gap: 40px; }
+#tbay-header ul.megamenu > li { margin: 0; }
+#tbay-header ul.megamenu > li > a {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--gram-ink);
+	line-height: 52px;
+}
+#tbay-header ul.megamenu > li > a:hover,
+#tbay-header ul.megamenu > li.active > a,
+#tbay-header ul.megamenu > li.current-menu-item > a,
+#tbay-header ul.megamenu > li.active-mega-menu:hover > a { color: var(--gram-green); }
+#tbay-header .caret {
+	width: 7px;
+	height: 7px;
+	border: solid currentColor;
+	border-width: 0 1.5px 1.5px 0;
+	transform: rotate(45deg) translateY(-3px);
+}
+
+/* mega menu */
+#tbay-header .elementor-element-4b7e20b5 .elementor-container { position: relative; }
+#tbay-header .active-mega-menu > .dropdown-menu {
+	display: none;
+	position: absolute;
+	left: 15px;
+	right: 15px;
+	top: 100%;
+	z-index: 100;
+	padding: 18px 8px;
+	background: #fff;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0 10px 28px rgba(0, 0, 0, .12);
+}
+#tbay-header .active-mega-menu:hover > .dropdown-menu,
+#tbay-header .active-mega-menu:focus-within > .dropdown-menu { display: block; }
+#tbay-header .elementor-345202 .elementor-container { padding: 0; align-items: flex-start; }
+#tbay-header .elementor-345202 .elementor-col-25 { flex: 1 1 25%; }
+#tbay-header .menu-vertical { list-style: none; margin: 0; padding: 0; }
+#tbay-header .menu-vertical li a {
+	display: block;
+	padding: 8px 14px;
+	font-size: 13px;
+	color: var(--gram-ink);
+}
+#tbay-header .menu-vertical li a:hover,
+#tbay-header .menu-vertical li.current-menu-item a { color: var(--gram-green); }
+
+/* recently viewed */
+#tbay-header .product-recently-viewed-header { position: relative; }
+#tbay-header .product-recently-viewed-header .header-title {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 52px;
+	cursor: pointer;
+}
+#tbay-header .product-recently-viewed-header .header-title::after {
+	content: "";
+	width: 7px;
+	height: 7px;
+	border: solid currentColor;
+	border-width: 0 1.5px 1.5px 0;
+	transform: rotate(45deg) translateY(-3px);
+}
+#tbay-header .product-recently-viewed-header .content-view {
+	display: none;
+	position: absolute;
+	right: 0;
+	top: 100%;
+	z-index: 100;
+	min-width: 280px;
+	padding: 16px;
+	background: #fff;
+	border-radius: 6px;
+	box-shadow: 0 8px 28px rgba(0, 0, 0, .14);
+}
+#tbay-header .product-recently-viewed-header:hover .content-view { display: block; }
+#tbay-header .list-recent { display: flex; flex-wrap: wrap; gap: 10px; font-size: 13px; color: var(--gram-muted); }
+#tbay-header .item-recent img { width: 64px; height: 64px; object-fit: cover; border-radius: 4px; }
+
+/* ---------- small screens: keep it usable, no horizontal scroll ---------- */
+
+@media (max-width: 991px) {
+	#tbay-header .elementor-element-7b9afd15 > .elementor-container { flex-wrap: wrap; gap: 12px; padding-top: 12px; padding-bottom: 12px; }
+	#tbay-header .elementor-element-245d1ab { order: 9; flex: 1 1 100%; }
+	#tbay-header .elementor-element-288adc74,
+	#tbay-header .elementor-element-8665ded { display: none; }
+	#tbay-header ul.megamenu { gap: 20px; overflow-x: auto; }
+	#tbay-header .elementor-element-6fcb3678 { display: none; }
+}

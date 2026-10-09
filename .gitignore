@@ -1,0 +1,7 @@
+# Secrets / local env
+.env
+
+# DB dumps, container data
+*.sql
+*.sql.gz
+mysql-data/

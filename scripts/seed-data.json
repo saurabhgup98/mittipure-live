@@ -1,0 +1,1085 @@
+{
+  "categories": [
+    {
+      "name": "Rice",
+      "slug": "traditional-rice-varieties",
+      "parent": "",
+      "description": ""
+    },
+    {
+      "name": "Ghee",
+      "slug": "cow-ghee",
+      "parent": "",
+      "description": "Pure cow / buffalo ghee prepared using traditional method"
+    },
+    {
+      "name": "Pulses and Millets",
+      "slug": "millets",
+      "parent": "",
+      "description": ""
+    },
+    {
+      "name": "Dried Nuts and Seeds",
+      "slug": "dried-nuts-and-seeds",
+      "parent": "",
+      "description": ""
+    },
+    {
+      "name": "Masala and Spices",
+      "slug": "masala-and-spices",
+      "parent": "",
+      "description": "Masala, Podis, Dry Fruits, Natural Cashews, Spices"
+    },
+    {
+      "name": "Podi Varities",
+      "slug": "podi-varities",
+      "parent": "masala-and-spices",
+      "description": "Buy Podi varities for Idli or Dosa"
+    },
+    {
+      "name": "Cold Pressed Oil",
+      "slug": "cold-pressed-oil",
+      "parent": "",
+      "description": "Naturally extracted cold-pressed oil. Marachekku Gingelly Oil , Groundnut oil, Coconut oil. Homemade ghee"
+    },
+    {
+      "name": "Smart Carb Choices",
+      "slug": "diabetic-friendly",
+      "parent": "",
+      "description": ""
+    },
+    {
+      "name": "Crunchy Snacks",
+      "slug": "snacks",
+      "parent": "",
+      "description": "Buy healthy south Indian snacks online at best price. Choose from our range of premium quality homemade snacks with free Shipping &amp; Cash on Delivery."
+    },
+    {
+      "name": "Combo Boxes",
+      "slug": "buy-natural-combo-foods-online",
+      "parent": "",
+      "description": ""
+    }
+  ],
+  "products": [
+    {
+      "source_id": 345715,
+      "name": "Thooyamalli Rice – Traditional Rice",
+      "slug": "thooyamalli-rice-traditional-rice",
+      "type": "variable",
+      "sku": "",
+      "categories": [
+        "traditional-rice-varieties"
+      ],
+      "image_count": 4,
+      "stock_quantity": null,
+      "tags": [],
+      "regular_price": "140.00",
+      "sale_price": "",
+      "short_description": "<ol>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">A traditional rice variety valued for generations</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Naturally white and a good source of energy</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">A strong and resilient crop that needs fewer pesticides</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Named after jasmine for its appearance and mild aroma</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Ideal for biriyani and pairs well with sambar, rasam, and curries</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Supports overall body strength and wellness</span></li>\n</ol>",
+      "description": "<p><b>Learn why Thooyamalli Rice is a better choice</b></p>\n<ul>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">The name comes from “Thooya” meaning pure and “Malli” meaning jasmine, inspired by its clean look and gentle fragrance</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">A lesser-known traditional rice variety with strong nutritional value</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Widely enjoyed in earlier times, including by royal households</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Can be used as a healthier alternative to regular white rice</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Suitable for many dishes like biriyani, sambar rice, rasam rice, and variety rice</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Can be dried and ground into flour for dishes like kozhukattai, pongal, idli, and dosa</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Light on the stomach and fits well into daily meals</span></li>\n</ul>\n<p></p>\n<p><b>How to cook Thooyamali Rice: </b></p>\n<ol>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Wash 1 cup of Thooyamalli rice 2 to 3 times</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Soak the rice for 20 to 30 minutes</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">(For the cooker method, add soaked rice and allow 3 whistles)</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Boil 4 cups of water in a pot (add salt if needed)</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Add the soaked rice to boiling water</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Cook on medium flame until rice becomes soft</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Drain the excess water</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Let it rest for 5 minutes before serving </span></li>\n</ol>",
+      "weight": "",
+      "attributes": [
+        {
+          "name": "weight",
+          "taxonomy": "pa_weight",
+          "options": [
+            "1 Kg",
+            "5 Kgs",
+            "26 kgs"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "source_id": 419012,
+          "sku": "TMRI1000",
+          "attributes": {
+            "weight": "1-kg"
+          },
+          "regular_price": "140.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 9863
+        },
+        {
+          "source_id": 346029,
+          "sku": "TMRI5KGS",
+          "attributes": {
+            "weight": "5-kgs"
+          },
+          "regular_price": "675.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 9803
+        },
+        {
+          "source_id": 446427,
+          "sku": "THR26KGSB",
+          "attributes": {
+            "weight": "26-kgs"
+          },
+          "regular_price": "3250.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        }
+      ],
+      "default_attributes": {
+        "pa_weight": "1-kg"
+      }
+    },
+    {
+      "source_id": 19227,
+      "name": "Mappillai Samba Rice – 500gms",
+      "slug": "buy-online-organic-mappillai-samba-arisi",
+      "type": "simple",
+      "sku": "MPSR0500",
+      "categories": [
+        "traditional-rice-varieties"
+      ],
+      "image_count": 3,
+      "stock_quantity": 364,
+      "tags": [],
+      "regular_price": "70.00",
+      "sale_price": "",
+      "short_description": "<ul>\n<li>Traditional rice variety</li>\n<li>Para boiled rice</li>\n<li>Best used as idli rice</li>\n<li>Helps to improve the immunity and stamina</li>\n<li>Weight : 500Gms</li>\n</ul>",
+      "description": "<p><strong>Benefits of Mapillai Samba Rice</strong></p>\n<ul>\n<li>Helps digestion and cures constipation as it contains high fibre</li>\n<li>Cures stomach and mouth ulcers</li>\n<li>Improves overall stamina and immunity</li>\n<li>It has low GI ( Glycemic Index ) and can be used as an alternate to regular white rice for diabetics</li>\n<li>Contains Vitamin B6 and Magnesium , which helps to strengthen our nervous system. So it is called as Mapillai (Bridegroom) Samba rice</li>\n<li>Contains low carbohydrate and low sugar</li>\n<li>Increases the red blood cells</li>\n</ul>",
+      "weight": ".500",
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "source_id": 345628,
+      "name": "Pure cow ghee",
+      "slug": "pure-cow-ghee",
+      "type": "variable",
+      "sku": "GR1008",
+      "categories": [
+        "cow-ghee"
+      ],
+      "image_count": 3,
+      "stock_quantity": null,
+      "tags": [
+        {
+          "name": "cow ghee",
+          "slug": "cow-ghee"
+        },
+        {
+          "name": "homemade ghee",
+          "slug": "homemade-ghee"
+        },
+        {
+          "name": "Pure ghee",
+          "slug": "pure-ghee"
+        }
+      ],
+      "regular_price": "315.00",
+      "sale_price": "",
+      "short_description": "<ol>\n<li><span style=\"font-weight: 400\">Gramiyum pure cow ghee is prepared by adopting traditional methods to keep the longevity and the purity of its essence. </span></li>\n<li><span style=\"font-weight: 400\">Contains the standards and quality of pure Indian cow ghee that is prepared in the home</span></li>\n<li>100% pure cow ghee. <span style=\"font-weight: 400\">Made from scratch by using pure country milk by following natural processes of cow ghee preparation  </span></li>\n<li>Prepared by traditional method and no chemicals were used.</li>\n<li>Milk sourced from our own farm, where cows are reared in free-range and fed with organic grass and feeds</li>\n<li>Made in small batches every week. <span style=\"font-weight: 400\">100% freshness is guaranteed in Gramiyum pure cow ghee<br />\n</span></li>\n<li><span style=\"font-weight: 400\">Manufactured and packed in full hygiene standards with all safety measures. </span></li>\n</ol>\n<p><strong>Do not refrigerate and shelf life is 9 months from the manufacturing date.</strong></p>",
+      "description": "<p></p>\n<p>&nbsp;</p>\n<p></p>\n<p>&nbsp;</p>\n<p>Cow ghee is a calorie-dense food that provides around 800 calories in 100ml of ghee.</p>\n<p>Research states that it possesses healthy fat and adds good cholesterol to the body.</p>\n<p>Natural cow ghee is one of the safest dermatological properties which is skin-friendly and treats burns.</p>\n<p>Regular usage of cow ghee helps in balancing thyroid hormones.</p>\n<p>Vitamin K in ghee helps in calcium absorption which prevents tooth decay and keeps your bones healthy.</p>",
+      "weight": "0",
+      "attributes": [
+        {
+          "name": "Volume",
+          "taxonomy": "pa_volume",
+          "options": [
+            "250 ML",
+            "500 ml",
+            "1 Litre"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "source_id": 408611,
+          "sku": "PUGH1000",
+          "attributes": {
+            "Volume": "1-litre"
+          },
+          "regular_price": "1150.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        },
+        {
+          "source_id": 345956,
+          "sku": "PUGH0250",
+          "attributes": {
+            "Volume": "250-ml"
+          },
+          "regular_price": "315.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        },
+        {
+          "source_id": 345957,
+          "sku": "PUGH0500",
+          "attributes": {
+            "Volume": "500-ml"
+          },
+          "regular_price": "595.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        }
+      ],
+      "default_attributes": {
+        "pa_volume": "250-ml"
+      }
+    },
+    {
+      "source_id": 345664,
+      "name": "Pure Desi / Gir Cow  Ghee",
+      "slug": "pure-desi-gir-cow-ghee-a2",
+      "type": "variable",
+      "sku": "GR1008-1",
+      "categories": [
+        "cow-ghee"
+      ],
+      "image_count": 4,
+      "stock_quantity": null,
+      "tags": [
+        {
+          "name": "cow ghee",
+          "slug": "cow-ghee"
+        },
+        {
+          "name": "homemade ghee",
+          "slug": "homemade-ghee"
+        },
+        {
+          "name": "Pure ghee",
+          "slug": "pure-ghee"
+        }
+      ],
+      "regular_price": "620.00",
+      "sale_price": "",
+      "short_description": "<ul>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\"><span style=\"font-weight: 400\">Sourced from Srivilliputhur, prepared from GIR cows, and made with the traditional curd</span></span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\"><span style=\"font-weight: 400\">Prepared using the traditional hand-churning method</span></span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\"><span style=\"font-weight: 400\">No machines or chemical processes involved</span></span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\"><span style=\"font-weight: 400\">Cows are raised in a free-range environment</span></span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\"><span style=\"font-weight: 400\">Fed with natural grass and balanced feed</span></span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Rich taste and authentic aroma in every spoon </span></li>\n</ul>",
+      "description": "<p><b>What is Desi Ghee and how is it different from factory-made ghee?</b></p>\n<ul>\n<li>Ghee has always been an important part of our daily life, from traditional rituals to everyday cooking and wellness practices.</li>\n<li>When something is used in so many ways, it should be in its most natural and pure form.</li>\n<li>Desi ghee is made from milk of desi cows, which is closer to its original form. This makes it different from factory-made ghee that is often produced using processed milk and large-scale methods.</li>\n<li>At Gramiyum, we focus on maintaining authenticity at every step. Our ghee is prepared using the traditional hand-churning method to preserve its natural quality.</li>\n<li>The milk is sourced from Srivilliputhur, where Gir cows are raised in a free-range environment and fed with natural grass and balanced feed.</li>\n<li>Every step is handled with care to ensure purity, consistency, and trust in every jar.</li>\n<li>When it comes to food, health, and tradition, choosing a pure form of ghee makes a meaningful difference.</li>\n</ul>\n<p>&nbsp;</p>\n<p></p>\n<p>&nbsp;</p>\n<p><b>Regular Ghee vs Desi Ghee Nutritional Chart Value</b></p>\n<table style=\"width: 100%;border-collapse: collapse;margin-bottom: 20px;font-family: sans-serif\">\n<tbody>\n<tr style=\"background-color: #f9f9f9\">\n<td style=\"border: 1px solid #ddd;padding: 10px\"><b>Nutrient</b></td>\n<td style=\"border: 1px solid #ddd;padding: 10px\"><b>Desi Ghee (Approx.)</b></td>\n<td style=\"border: 1px solid #ddd;padding: 10px\"><b>Regular Ghee (Approx.)</b></td>\n</tr>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Calories</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">112-120 kcal</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">120-130 kcal</td>\n</tr>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Total Fat</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">12-14g</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">14-15g</td>\n</tr>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Saturated Fat</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">7.9-9g</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">9-10g</td>\n</tr>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Vitamin A</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Rich in Vit A, D, E, K</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">~107 mcg</td>\n</tr>\n</tbody>\n</table>\n<div style=\"gap: 20px;justify-content: flex-start;align-items: center;margin-bottom: 20px;flex-wrap: wrap\"></div>\n<div style=\"margin-top: 10px\"></div>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>",
+      "weight": "0.2",
+      "attributes": [
+        {
+          "name": "Volume",
+          "taxonomy": "pa_volume",
+          "options": [
+            "250 ML",
+            "500 ml"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "source_id": 345971,
+          "sku": "A2GH0250",
+          "attributes": {
+            "Volume": "250-ml"
+          },
+          "regular_price": "620.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 869
+        },
+        {
+          "source_id": 345970,
+          "sku": "A2GH0500",
+          "attributes": {
+            "Volume": "500-ml"
+          },
+          "regular_price": "1200.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 775
+        }
+      ],
+      "default_attributes": {
+        "pa_volume": "250-ml"
+      }
+    },
+    {
+      "source_id": 345819,
+      "name": "Toor Dhal – Thuvaram Paruppu",
+      "slug": "toor-dhal-thuvaram-paruppu",
+      "type": "variable",
+      "sku": "",
+      "categories": [
+        "millets"
+      ],
+      "image_count": 4,
+      "stock_quantity": null,
+      "tags": [],
+      "regular_price": "120.00",
+      "sale_price": "",
+      "short_description": "<ul>\n<li>Naturally Sourced Thuvaram Paruppu / Thur / thoor Dhal.</li>\n<li>Sourced from western ghats in Dharmapuri district.</li>\n<li>Grown without any use of pesticides or fertilizers.</li>\n<li></li>\n</ul>",
+      "description": "",
+      "weight": ".5",
+      "attributes": [
+        {
+          "name": "weight",
+          "taxonomy": "pa_weight",
+          "options": [
+            "1 Kg",
+            "5 Kgs",
+            "500 gms"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "source_id": 419831,
+          "sku": "TODAL1KG",
+          "attributes": {
+            "weight": "1-kg"
+          },
+          "regular_price": "210.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 643
+        },
+        {
+          "source_id": 346000,
+          "sku": "TODAL5KG",
+          "attributes": {
+            "weight": "5-kgs"
+          },
+          "regular_price": "1025.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 980
+        },
+        {
+          "source_id": 346001,
+          "sku": "TODAL500",
+          "attributes": {
+            "weight": "500-gms"
+          },
+          "regular_price": "120.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 910
+        }
+      ],
+      "default_attributes": {
+        "pa_weight": "1-kg"
+      }
+    },
+    {
+      "source_id": 345826,
+      "name": "Urad Dhal | Ulunthu Parppu",
+      "slug": "buy-ulundhu-paruppu",
+      "type": "variable",
+      "sku": "",
+      "categories": [
+        "millets"
+      ],
+      "image_count": 4,
+      "stock_quantity": null,
+      "tags": [],
+      "regular_price": "110.00",
+      "sale_price": "",
+      "short_description": "<ul>\n<li>Urad Dhal | Ulunthu Parppu | Whole without skin</li>\n<li>High in fiber content</li>\n<li>Improves bone health</li>\n<li>Urad dal is rich in Iron compared to other dals.</li>\n<li>Naturally sourced</li>\n<li>This dal is used for seasoning, dals, sambar, idly/dosa batter, and more.</li>\n</ul>",
+      "description": "",
+      "weight": "",
+      "attributes": [
+        {
+          "name": "weight",
+          "taxonomy": "pa_weight",
+          "options": [
+            "1 Kg",
+            "5 Kgs",
+            "500 gms"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "source_id": 419832,
+          "sku": "URDAL1000",
+          "attributes": {
+            "weight": "1-kg"
+          },
+          "regular_price": "200.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 617
+        },
+        {
+          "source_id": 346036,
+          "sku": "URDAL5KG",
+          "attributes": {
+            "weight": "5-kgs"
+          },
+          "regular_price": "950.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 984
+        },
+        {
+          "source_id": 346037,
+          "sku": "URDAL500",
+          "attributes": {
+            "weight": "500-gms"
+          },
+          "regular_price": "110.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 939
+        }
+      ],
+      "default_attributes": {
+        "pa_weight": "1-kg"
+      }
+    },
+    {
+      "source_id": 138071,
+      "name": "Raw Peanut / Groundnut / Fresh Verkadalai",
+      "slug": "raw-fresh-peanuts",
+      "type": "variable",
+      "sku": "",
+      "categories": [
+        "dried-nuts-and-seeds"
+      ],
+      "image_count": 1,
+      "stock_quantity": null,
+      "tags": [],
+      "regular_price": "105.00",
+      "sale_price": "",
+      "short_description": "<ul>\n<li>Raw Peanuts, Contain no additives and no preservatives.</li>\n<li>Nutritional and Energetic Health Food</li>\n<li>Fresh and Ready to use for all your Chutney, Powder preparations.</li>\n</ul>",
+      "description": "<p><u>Storage Instructions:</u> Store in an airtight container.</p>\n<p><u>Product Expiry:</u> Consume within 3 months from the date of packing.</p>\n<p>Recommended to store in the freezer to maintain the freshness for a long duration</p>",
+      "weight": "",
+      "attributes": [
+        {
+          "name": "weight",
+          "taxonomy": "pa_weight",
+          "options": [
+            "200 Gms",
+            "500 gms"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "source_id": 416112,
+          "sku": "RAPN0500",
+          "attributes": {
+            "weight": "500-gms"
+          },
+          "regular_price": "105.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 609
+        }
+      ],
+      "default_attributes": {
+        "pa_weight": "500-gms"
+      }
+    },
+    {
+      "source_id": 1181,
+      "name": "Natural Cashews",
+      "slug": "natural-cashews",
+      "type": "variable",
+      "sku": "",
+      "categories": [
+        "dried-nuts-and-seeds"
+      ],
+      "image_count": 3,
+      "stock_quantity": null,
+      "tags": [
+        {
+          "name": "Cashew nuts",
+          "slug": "cashew-nuts"
+        }
+      ],
+      "regular_price": "350.00",
+      "sale_price": "",
+      "short_description": "<ul>\n<li>Pack contains pure selected Cashew Nuts</li>\n<li>Whole cashew. Grade : W240</li>\n<li>Sun dried and Hand processed nuts</li>\n<li>Fresh and crispy without any spots</li>\n</ul>\n<p>&nbsp;</p>\n<p>&nbsp;</p>",
+      "description": "<p>Delicious cashew nuts are packed with energy, antioxidants, minerals and vitamins</p>\n<p>that are essential for robust health!</p>\n<p><u>Storage Instructions :</u> Store in air tight container</p>\n<p><u>Product Expiry :</u> Consume within 6 months from the date of packing.</p>\n<p>Recommended to store in freezer to maintain the freshness for long duration</p>",
+      "weight": "",
+      "attributes": [
+        {
+          "name": "weight",
+          "taxonomy": "pa_weight",
+          "options": [
+            "0.5 Kg",
+            "250 Gms"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "source_id": 417151,
+          "sku": "NACA0500",
+          "attributes": {
+            "weight": "0-5-kg"
+          },
+          "regular_price": "680.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 973
+        },
+        {
+          "source_id": 417152,
+          "sku": "NACA0250",
+          "attributes": {
+            "weight": "250-gms"
+          },
+          "regular_price": "350.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 900
+        }
+      ],
+      "default_attributes": {
+        "pa_weight": "250-gms"
+      }
+    },
+    {
+      "source_id": 345630,
+      "name": "Nattu Sakkarai – Cane Jaggery Powder",
+      "slug": "cane-sugar-brown-nattu-sakkarai",
+      "type": "variable",
+      "sku": "",
+      "categories": [
+        "masala-and-spices"
+      ],
+      "image_count": 4,
+      "stock_quantity": null,
+      "tags": [
+        {
+          "name": "chemical-free-nattu-sakkarai",
+          "slug": "chemical-free-nattu-sakkarai-2"
+        },
+        {
+          "name": "nattu-sakkarai-for-kids",
+          "slug": "nattu-sakkarai-for-kids-2"
+        }
+      ],
+      "regular_price": "75.00",
+      "sale_price": "",
+      "short_description": "<ul>\n<li>Cane sugar also called as Nattu Sakkarai in Tamil (நாட்டு சர்க்கரை)</li>\n<li>Extracted from Pure Sugarcane</li>\n<li>Raw sugar cane jaggery powder</li>\n<li>No Artificial Colors or Flavours added</li>\n<li>Not Bleached and 100% Natural</li>\n<li></li>\n</ul>",
+      "description": "<p>With Gramiyum&#8217;s Cane jaggery powder, you can feel taste of natural cane sugar juice and flavor. No added flavor , no added preservative and its a Homemade product.</p>\n<h3>Refined white cane sugar Vs Cane jaggery powder</h3>\n<p>1. Cane Jaggery powder is more nutritious than white sugar as it contains protein , minerals and vitamins. Refined white sugar does not have these.<br />\n2. Glycemic Index (GI) of Cane jaggery powder is roughly around 84 and is more complex than white sugar and it takes longer time to digest and release energy. GI of white sugar is 65. The higher the GI number, its better for body<br />\n4. Cane jaggery powder is naturally brown and it does not contains chemical residue, as its not refined or bleached<br />\n5. Cane jaggery is better than white sugar, but it is still a type of sugar and it should be taken in moderation.</p>",
+      "weight": "0.5",
+      "attributes": [
+        {
+          "name": "weight",
+          "taxonomy": "pa_weight",
+          "options": [
+            "1 Kg",
+            "500 gms"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "source_id": 345960,
+          "sku": "NASA1000",
+          "attributes": {
+            "weight": "1-kg"
+          },
+          "regular_price": "140.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 8803
+        },
+        {
+          "source_id": 345961,
+          "sku": "NASA0500",
+          "attributes": {
+            "weight": "500-gms"
+          },
+          "regular_price": "75.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 9177
+        }
+      ],
+      "default_attributes": {
+        "pa_weight": "1-kg"
+      }
+    },
+    {
+      "source_id": 123848,
+      "name": "Hing Powder / Perungayam Thool / Asafoetida – 50 gms",
+      "slug": "hing-powder-perungayam-asafoetida",
+      "type": "simple",
+      "sku": "HINGPO50",
+      "categories": [
+        "masala-and-spices"
+      ],
+      "image_count": 1,
+      "stock_quantity": 379,
+      "tags": [],
+      "regular_price": "90.00",
+      "sale_price": "80.00",
+      "short_description": "<ol>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Gramiyum hing powder is made out of wheat flour and edible gum making it completely safe and chemical-free </span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Hing powder also known as Asafoetida is one of the healthy kitchen masalas that helps indigestion </span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">It eases the bloating, constipation, and stomach upset problems when added with hot water and drank on an empty stomach </span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Asafoetida powder gives you a natural aroma to the food when added during cooking dal, curries, sambar, and rasam</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Hing powder is the king of kitchen masalas because of its health, aroma, and therapeutic benefits.</span></li>\n</ol>\n<h4><span style=\"font-weight: 400\"><strong>Weight:</strong> 50 gms </span></h4>\n<h4><span style=\"font-weight: 400\"><strong>Ingredients:</strong> Whole wheat flour &#8211; 30%, Hing, Edible Gum</span></h4>\n<p>&nbsp;</p>",
+      "description": "<h2></h2>\n<h2></h2>\n<h2><span style=\"font-weight: 400\">How to use Asafoetida?</span></h2>\n<ol>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Take a pinch of asafoetida and add them to a hot pan with oil to season the dal and curries </span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Mix ¼ tsp of hing powder in 1 glass of hot water and drink them when feeling stomach upset / or add 1/4 tsp hing powder with buttermilk </span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Close the lid tightly to preserve the aroma and texture of the powder </span></li>\n</ol>",
+      "weight": ".050",
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "source_id": 4701,
+      "name": "Natural turmeric powder – 150 Gms",
+      "slug": "natural-turmeric-powder",
+      "type": "simple",
+      "sku": "NTURP150",
+      "categories": [
+        "podi-varities",
+        "masala-and-spices"
+      ],
+      "image_count": 3,
+      "stock_quantity": 501,
+      "tags": [],
+      "regular_price": "90.00",
+      "sale_price": "",
+      "short_description": "<p>•Natural. Free from Chemicals and Pesticides.<br />\n•Used in all Indian curries and gravies. It has anti inflammatory and anti oxidant Properties.<br />\n•Naturally contains Curcumin and it is a Natural Anti-Inflammatory Compound.<br />\n•Turmeric Dramatically Increases The Antioxidant Capacity of The Body</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>",
+      "description": "",
+      "weight": "0.150",
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "source_id": 15321,
+      "name": "Red Chilli Powder – Natural Milagaai Podi – 150gms",
+      "slug": "natural-red-chilli-powder-natural-milagaai-podi",
+      "type": "simple",
+      "sku": "NCP00150",
+      "categories": [
+        "podi-varities",
+        "masala-and-spices"
+      ],
+      "image_count": 3,
+      "stock_quantity": 906,
+      "tags": [],
+      "regular_price": "115.00",
+      "sale_price": "",
+      "short_description": "<ul>\n<li>Naturally grown Red Chilli Podi &#8211; Sigappu Milagaai Podi</li>\n<li>No pesticides, chemicals added while growth of Chilli</li>\n</ul>",
+      "description": "",
+      "weight": ".150",
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "source_id": 345626,
+      "name": "Groundnut Oil (Cold Pressed)",
+      "slug": "groundnut-oil-cold-pressed",
+      "type": "variable",
+      "sku": "0",
+      "categories": [
+        "cold-pressed-oil"
+      ],
+      "image_count": 4,
+      "stock_quantity": null,
+      "tags": [
+        {
+          "name": "cold pressed groundnut oil",
+          "slug": "cold-pressed-groundnut-oil"
+        },
+        {
+          "name": "Cold pressed oil in Bangalore",
+          "slug": "cold-pressed-oil-in-bangalore"
+        },
+        {
+          "name": "Cold pressed oil in Chennai",
+          "slug": "cold-pressed-oil-in-chennai"
+        },
+        {
+          "name": "cold pressed oil in Hyderabad",
+          "slug": "cold-pressed-oil-in-hyderabad"
+        },
+        {
+          "name": "groundnut oil",
+          "slug": "groundnut-oil"
+        },
+        {
+          "name": "mara chekku groundnut oil",
+          "slug": "mara-chekku-groundnut-oil"
+        },
+        {
+          "name": "Wood pressed groundnut oil",
+          "slug": "wood-pressed-groundnut-oil"
+        }
+      ],
+      "regular_price": "180.00",
+      "sale_price": "180.00",
+      "short_description": "<p>Cold-pressed groundnut oil is made using the traditional wooden chekku method (Marachekku in Tamil).</p>\n<p>This method helps retain the oil’s original nutrients and natural flavor.</p>\n<p>Also known as ‘Marachekku’ kadalai ennai.</p>\n<p>It has a high smoking point, making it ideal for deep frying and regular cooking.</p>",
+      "description": "<p><b>Why Cold Pressed Oil? </b></p>\n<ul>\n<li style=\"font-weight: 400\"><b>No Harmful Compounds:</b><span style=\"font-weight: 400\"> When regular oils are heated, their molecular structure breaks down, producing harmful free radicals that can increase the risk of cancer.</span></li>\n<li style=\"font-weight: 400\"><b>Better for Heart &amp; Blood:</b><span style=\"font-weight: 400\"> Heated oils can contribute to cardiovascular problems and make it harder for blood to carry oxygen efficiently.</span></li>\n<li style=\"font-weight: 400\"><b>Nutrient Retention:</b><span style=\"font-weight: 400\"> Cold-pressed oils are extracted without heat, so their natural nutrients, vitamins, and healthy fats remain intact.</span></li>\n<li style=\"font-weight: 400\"><b>Pure &amp; Natural Taste:</b><span style=\"font-weight: 400\"> Since they are not exposed to high temperatures or chemicals, cold-pressed oils have a rich, authentic flavor.</span></li>\n<li style=\"font-weight: 400\"><b>Longer Shelf Life:</b><span style=\"font-weight: 400\"> Their unaltered structure and natural antioxidants help them stay fresh for a longer time.</span></li>\n<li style=\"font-weight: 400\"><b>Healthier Choice:</b><span style=\"font-weight: 400\"> Overall, cold-pressed oils support better health while enhancing the taste and quality of your food.</span></li>\n</ul>\n<p><b>Usage </b></p>\n<ul>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Commonly used for frying snacks, sautéing vegetables, and everyday cooking because of its high smoking point.</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Adds a rich, earthy taste to South Indian recipes, sweets, and pickles.</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">It can be used in salad dressings, chutneys, or drizzled over cooked food for extra flavor and nutrition.</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Consumed as part of a healthy diet to support heart health, control cholesterol, and improve overall wellness.</span></li>\n</ul>\n<p><b>Recipes to do with Groundnut Oil &#8211; (Cold Pressed)</b></p>\n<ul>\n<li style=\"font-weight: 400\"><b>Vegetable Stir Fry</b><span style=\"font-weight: 400\"> – Enhances veggies with a light, nutty flavor and perfect sauté.</span></li>\n<li style=\"font-weight: 400\"><b>Tempering for Dals &amp; Curries</b><span style=\"font-weight: 400\"> – Brings out authentic aroma and depth to traditional dishes.</span></li>\n<li style=\"font-weight: 400\"><b>Sambar</b><span style=\"font-weight: 400\"> – Adds richness and balance to the classic South Indian favorite.</span></li>\n<li style=\"font-weight: 400\"><b>Rasam</b><span style=\"font-weight: 400\"> – Infuses a warm, aromatic touch for a perfect finishing drizzle.</span></li>\n<li style=\"font-weight: 400\"><b>Chapati / Paratha Cooking</b><span style=\"font-weight: 400\"> – Gives soft, flavorful rotis with a golden finish.</span></li>\n<li style=\"font-weight: 400\"><b>Idli Podi Oil Mix</b><span style=\"font-weight: 400\"> – Blends beautifully with podi for a delicious, aromatic dip.</span></li>\n<li style=\"font-weight: 400\"><b>Medu Vadai</b><span style=\"font-weight: 400\"> – Ensures crispy, golden vadas with a soft inside.</span></li>\n<li style=\"font-weight: 400\"><b>Masala Vadai</b><span style=\"font-weight: 400\"> – Enhances flavor and gives a perfect crunchy texture.</span></li>\n</ul>",
+      "weight": "",
+      "attributes": [
+        {
+          "name": "Volume",
+          "taxonomy": "pa_volume",
+          "options": [
+            "500 ml",
+            "1 Litre",
+            "4 Litres",
+            "5 Litres",
+            "6 Litres"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "source_id": 345941,
+          "sku": "GROI0500",
+          "attributes": {
+            "Volume": "500-ml"
+          },
+          "regular_price": "180.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        },
+        {
+          "source_id": 345936,
+          "sku": "GROI1000",
+          "attributes": {
+            "Volume": "1-litre"
+          },
+          "regular_price": "350.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        },
+        {
+          "source_id": 345939,
+          "sku": "GROI04000",
+          "attributes": {
+            "Volume": "4-litres"
+          },
+          "regular_price": "1400.00",
+          "sale_price": "1350.00",
+          "in_stock": true,
+          "stock_quantity": null
+        },
+        {
+          "source_id": 345940,
+          "sku": "GROI05000",
+          "attributes": {
+            "Volume": "5-litres"
+          },
+          "regular_price": "1750.00",
+          "sale_price": "1675.00",
+          "in_stock": true,
+          "stock_quantity": null
+        },
+        {
+          "source_id": 345942,
+          "sku": "GROI06000",
+          "attributes": {
+            "Volume": "6-litres"
+          },
+          "regular_price": "2100.00",
+          "sale_price": "1990.00",
+          "in_stock": true,
+          "stock_quantity": null
+        }
+      ],
+      "default_attributes": {
+        "pa_volume": "1-litre"
+      }
+    },
+    {
+      "source_id": 345625,
+      "name": "Sesame / Gingelly / Til Oil (Cold Pressed)",
+      "slug": "sesame-oil-cold-pressed",
+      "type": "variable",
+      "sku": "GRA1004",
+      "categories": [
+        "cold-pressed-oil"
+      ],
+      "image_count": 4,
+      "stock_quantity": null,
+      "tags": [
+        {
+          "name": "chekku gingelly oil",
+          "slug": "chekku-gingelly-oil"
+        },
+        {
+          "name": "chekku nallennai",
+          "slug": "chekku-nallennai"
+        },
+        {
+          "name": "Cold pressed oil in Bangalore",
+          "slug": "cold-pressed-oil-in-bangalore"
+        },
+        {
+          "name": "Cold pressed oil in Chennai",
+          "slug": "cold-pressed-oil-in-chennai"
+        },
+        {
+          "name": "cold pressed oil in Hyderabad",
+          "slug": "cold-pressed-oil-in-hyderabad"
+        },
+        {
+          "name": "cold pressed sesame oil",
+          "slug": "cold-pressed-sesame-oil"
+        },
+        {
+          "name": "mara chekku sesame oil",
+          "slug": "mara-chekku-sesame-oil"
+        },
+        {
+          "name": "wood pressed sesame oil",
+          "slug": "wood-pressed-sesame-oil"
+        }
+      ],
+      "regular_price": "240.00",
+      "sale_price": "",
+      "short_description": "<ul>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Cold-pressed from premium sesame seeds to preserve natural aroma, nutrients, and flavor.</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Light golden color with a mild nutty taste for versatile use.</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Rich in lignans, vitamin E, phytosterols, and healthy fats.</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Supports heart health and provides natural antioxidants.</span></li>\n<li style=\"font-weight: 400\"><span style=\"font-weight: 400\">Perfect for cooking, tempering, dressings, skincare, and massages. </span></li>\n<li></li>\n</ul>",
+      "description": "<p><b>Why Cold Pressed Oil?</b></p>\n<ul>\n<li><b>Rich in Nutrients &#8211; </b><span style=\"font-weight: 400\">Cold-pressed extraction preserves natural vitamins, antioxidants, and lignans. These nutrients support overall health and boost immunity.</span></li>\n</ul>\n<ul>\n<li><b>Chemical-Free &amp; Pure &#8211; </b><span style=\"font-weight: 400\">Made without heat, solvents, or refining for maximum purity. You get a clean, natural oil with no additives or preservatives.</span></li>\n</ul>\n<ul>\n<li><b>Authentic Flavor &amp; Aroma &#8211; </b><span style=\"font-weight: 400\">Retains the original nutty taste and light golden color of sesame seeds. Enhances dishes with a rich, traditional aroma.</span></li>\n</ul>\n<ul>\n<li><b>Supports Wellness &#8211; </b><span style=\"font-weight: 400\">Promotes heart health, improves antioxidant defense, and supports good digestion. Ideal for daily cooking and holistic health routines.</span></li>\n</ul>\n<ul>\n<li><b>Naturally Stable &#8211; </b><span style=\"font-weight: 400\">Packed with natural antioxidants that help prevent rancidity. Stays fresh longer without artificial stabilizers.</span></li>\n</ul>\n<ul>\n<li><b>Multi-Purpose &#8211;</b><span style=\"font-weight: 400\"> Perfect for cooking, tempering, salads, oil pulling, skincare, and haircare. A versatile oil for both kitchen and self-care.</span></li>\n<li><b>Minimal Processing &#8211; </b><span style=\"font-weight: 400\">Traditional cold-pressing keeps it close to its natural form. A wholesome choice for a healthy and sustainable lifestyle.</span></li>\n</ul>\n<p><b>Usage </b></p>\n<ul>\n<li style=\"font-weight: 400\"><b>Cooking and tempering –</b><span style=\"font-weight: 400\"> Perfect for sautéing, stir-fries, tadka, and adding rich flavor to dishes.</span></li>\n<li style=\"font-weight: 400\"><b>Dressings and marinades – </b><span style=\"font-weight: 400\">Enhances salads, chutneys, pickles, and everyday recipes.</span></li>\n<li style=\"font-weight: 400\"><b>Oil pulling and oral care – </b><span style=\"font-weight: 400\">Detoxifies the mouth, balances acidity, and supports dental health.</span></li>\n<li style=\"font-weight: 400\"><b>Skin and hair care –</b><span style=\"font-weight: 400\"> Moisturizes skin, strengthens hair, and works well for massages and beauty routines.</span></li>\n<li style=\"font-weight: 400\"><b>Traditional wellness – </b><span style=\"font-weight: 400\">Commonly used in Ayurvedic practices for detox, relaxation, and overall well-being.</span></li>\n</ul>\n<p><b>Recipes to do with Sesame / Gingelly / Til Oil (Cold Pressed)</b><span style=\"font-weight: 400\"> </span></p>\n<ul>\n<li style=\"font-weight: 400\"><b>Tadka Dal</b><span style=\"font-weight: 400\"> – Enriched with a flavorful sesame oil tempering for a homely touch.</span></li>\n<li style=\"font-weight: 400\"><b>Tamarind Rice (Puliyodarai)</b><span style=\"font-weight: 400\"> – Brings out authentic tangy-sesame flavors in every bite.</span></li>\n<li style=\"font-weight: 400\"><b>Vegetable Stir-Fry</b><span style=\"font-weight: 400\"> – Adds a nutty aroma and balanced flavor to fresh, crisp veggies.</span></li>\n<li style=\"font-weight: 400\"><b>Gingelly Chutney</b><span style=\"font-weight: 400\"> – A rich, earthy accompaniment bursting with sesame goodness.</span></li>\n<li style=\"font-weight: 400\"><b>Traditional Pickles</b><span style=\"font-weight: 400\"> – Enhances preservation and taste with deep, aromatic flavor.</span></li>\n<li style=\"font-weight: 400\"><b>Sesame Noodles</b><span style=\"font-weight: 400\"> – Coats noodles with a smooth, nutty taste for a delicious twist.</span></li>\n<li style=\"font-weight: 400\"><b>Stir-Fried Tofu or Paneer</b><span style=\"font-weight: 400\"> – Infuses a subtle nuttiness and enhances texture beautifully.</span></li>\n</ul>\n<p><b>Sesame Fried Rice</b><span style=\"font-weight: 400\"> – Adds aroma and depth, turning a simple dish into a flavor-packed delight.</span><span style=\"font-weight: 400\"><br />\n</span></p>",
+      "weight": "0",
+      "attributes": [
+        {
+          "name": "Volume",
+          "taxonomy": "pa_volume",
+          "options": [
+            "500 ml",
+            "1 Litre",
+            "2 Litres",
+            "3 Litres",
+            "4 Litres",
+            "5 Litres"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "source_id": 345944,
+          "sku": "SEOI1000",
+          "attributes": {
+            "Volume": "1-litre"
+          },
+          "regular_price": "470.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        },
+        {
+          "source_id": 345945,
+          "sku": "SEOI2000",
+          "attributes": {
+            "Volume": "2-litres"
+          },
+          "regular_price": "930.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        },
+        {
+          "source_id": 345947,
+          "sku": "SEOI3000",
+          "attributes": {
+            "Volume": "3-litres"
+          },
+          "regular_price": "1365.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        },
+        {
+          "source_id": 345948,
+          "sku": "SEOI4000",
+          "attributes": {
+            "Volume": "4-litres"
+          },
+          "regular_price": "1800.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        },
+        {
+          "source_id": 345949,
+          "sku": "SEOI5000",
+          "attributes": {
+            "Volume": "5-litres"
+          },
+          "regular_price": "2250.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        },
+        {
+          "source_id": 345950,
+          "sku": "SEOI0500",
+          "attributes": {
+            "Volume": "500-ml"
+          },
+          "regular_price": "240.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": null
+        }
+      ],
+      "default_attributes": {
+        "pa_volume": "1-litre"
+      }
+    },
+    {
+      "source_id": 445887,
+      "name": "Millet Dosa Mix 500g | Low GI | Sugar Conscious Foods",
+      "slug": "diabetic-friendly-millet-dosa-mix-500g",
+      "type": "simple",
+      "sku": "DFMDM500",
+      "categories": [
+        "diabetic-friendly"
+      ],
+      "image_count": 1,
+      "stock_quantity": 958,
+      "tags": [],
+      "regular_price": "140.00",
+      "sale_price": "",
+      "short_description": "<p><strong>Why Diabetic Friendly Millet Dosa Mix</strong><br />\nMade with carefully selected low-glycemic millets and traditional lentils, this dosa mix is a smarter alternative to regular rice-based batter. Naturally rich in fibre and plant protein, it supports better blood sugar balance while providing steady energy. Light on the stomach yet satisfying, it lets you enjoy crispy dosa in a wholesome way.</p>\n<ul>\n<li><strong>🥣 Ingredients</strong><br />\nFoxtail millet, Little millet, Kodo millet, Barnyard millet, Ragi, Jowar, Pearl millet, Barley, Urad dal, Chana dal, Fenugreek, Karunjeeragam, Salt<br />\n✔ No Maida<br />\n✔ No Refined Rice<br />\n✔ No Preservatives</li>\n</ul>",
+      "description": "<p>👩‍🍳 <strong>How to Prepare</strong><br />\n&#8211; Take 1 cup of Multi Millet Dosa Mix in a bowl.<br />\n&#8211; Add 1.5 cups of water gradually and mix to form a smooth batter.<br />\n&#8211; Ferment for 8–10 hours or overnight.<br />\n&#8211; Heat dosa tawa and grease lightly with oil.<br />\n&#8211; Spread batter in circular motion to form thin dosa.<br />\n&#8211; Drizzle oil and cook until crisp and golden.<br />\n&#8211; Fold and serve hot.</p>\n<p>(Note: Salt is already added. No need to add separately.)</p>\n<table style=\"width: 100%;border-collapse: collapse;font-family: Arial, sans-serif;font-size: 14px\">\n<thead>\n<tr style=\"background-color: #f5f5f5\">\n<th style=\"border: 1px solid #ddd;padding: 10px\">Regular Dosa</th>\n<th style=\"border: 1px solid #ddd;padding: 10px\">Gramiyum Millet Dosa</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Often rice-heavy</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Millet-based formulation</td>\n</tr>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Higher glycemic load</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Lower glycemic impact</td>\n</tr>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Less fibre</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">High fibre &amp; protein</td>\n</tr>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Requires fermentation</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">No fermentation required</td>\n</tr>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">May contain additives</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">No preservatives. No artificial colours.</td>\n</tr>\n</tbody>\n</table>\n<p>💪 <strong>Nutritional Advantages</strong><br />\n🌾 <strong>High Fibre</strong> – Supports slow digestion &amp; steady energy<br />\n💪 <strong>Protein Rich</strong> – Lentil + millet combo<br />\n❤️ <strong>Heart Friendly Grains</strong><br />\n🔥 <strong>Keeps You Full Longer</strong> – Helps avoid sugar spikes from frequent snacking</p>\n<p><strong>Perfect for:</strong><br />\n&#8211; Diabetic individuals (under medical supervision)<br />\n&#8211; Pre-diabetics<br />\n&#8211; Weight management diets<br />\n&#8211; Millet lovers<br />\n&#8211; Senior citizens<br />\n&#8211; Health-conscious families</p>\n<p><strong>⚠️ This product supports a balanced diet but does not replace medical treatment. Always consult your doctor for specific dietary advice.</strong></p>",
+      "weight": "0.5",
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "source_id": 445889,
+      "name": "Millet Adai Mix 500g | Low GI | Sugar Conscious Foods",
+      "slug": "diabetic-friendly-millet-adai-mix-500g",
+      "type": "simple",
+      "sku": "DFMAM500",
+      "categories": [
+        "diabetic-friendly"
+      ],
+      "image_count": 1,
+      "stock_quantity": 949,
+      "tags": [],
+      "regular_price": "165.00",
+      "sale_price": "",
+      "short_description": "<p><strong><strong>Why Diabetic Friendly Millet Adai Mix</strong></strong><br />\nMade with protein-rich millets and carefully selected ingredients, this mix is a wholesome choice for those managing blood sugar levels. With a naturally lower glycemic impact and high fiber content, it helps keep you fuller for longer while supporting steady energy. A hearty, nutritious option that brings together taste and health in every bite.</p>\n<ul>\n<li><strong>🥣 Ingredients</strong><br />\nFoxtail millet , Little millet , Kodo millet , Barnyard millet ,<br />\nPearl millet , Horsegram , Toor dal , Chana dal , Urad dal ,<br />\nMoongdal , Dry red chilli , Curry leaves dry, Cumin seeds ,<br />\nAsafoetida , Fennel seeds , Salt<br />\n✔ No Maida<br />\n✔ No Refined Rice<br />\n✔ No Preservatives</li>\n</ul>",
+      "description": "<p>👩‍🍳 <strong>How to Prepare</strong><br />\n&#8211; Take required quantity of mix.<br />\n&#8211; Add water gradually to make dosa batter consistency.<br />\n&#8211; Optional: Add chopped onions, drumstick leaves, grated carrot.<br />\n&#8211; Rest for 10–15 minutes.<br />\n&#8211; Pour thick adai on hot tawa and cook with little cold-pressed oil.<br />\n&#8211; Serve hot with avial, chutney, or jaggery.<br />\n&#8211; Ready in 15 minutes — No soaking, No grinding.</p>\n<p>(Note: Salt is already added. No need to add separately.)</p>\n<table style=\"width: 100%;border-collapse: collapse;font-family: Arial, sans-serif;font-size: 14px\">\n<thead>\n<tr>\n<th style=\"text-align: left;border: 1px solid #ddd;padding: 10px;background: #f5f5f5\">Regular Adai</th>\n<th style=\"text-align: left;border: 1px solid #ddd;padding: 10px;background: #f5f5f5\">Gramiyum Millet Adai</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Often rice-heavy</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Millet-based formulation</td>\n</tr>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Higher glycemic load</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Lower glycemic impact</td>\n</tr>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">Less fibre</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">High fibre &amp; protein</td>\n</tr>\n<tr>\n<td style=\"border: 1px solid #ddd;padding: 10px\">May contain additives</td>\n<td style=\"border: 1px solid #ddd;padding: 10px\">No preservatives. No artificial colours.</td>\n</tr>\n</tbody>\n</table>\n<p>💪 <strong>Nutritional Advantages</strong><br />\n🌾 <strong>High Fibre</strong> – Supports slow digestion &amp; steady energy<br />\n💪 <strong>Protein Rich</strong> – Lentil + millet combo<br />\n❤️ <strong>Heart Friendly Grains</strong><br />\n🔥 <strong>Keeps You Full Longer</strong> – Helps avoid sugar spikes from frequent snacking</p>\n<p><strong>Perfect for:</strong><br />\n&#8211; Diabetic individuals (under medical supervision)<br />\n&#8211; Pre-diabetics<br />\n&#8211; Weight management diets<br />\n&#8211; Millet lovers<br />\n&#8211; Senior citizens<br />\n&#8211; Health-conscious families</p>\n<p><strong>⚠️ This product supports a balanced diet but does not replace medical treatment. Always consult your doctor for specific dietary advice.</strong></p>",
+      "weight": "0.5",
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "source_id": 345808,
+      "name": "Nendran banana Chips (Fried in coconut oil)",
+      "slug": "nendran-banana-chips-fried-in-coconut-oil",
+      "type": "variable",
+      "sku": "",
+      "categories": [
+        "snacks"
+      ],
+      "image_count": 4,
+      "stock_quantity": null,
+      "tags": [
+        {
+          "name": "Fried in coconut oil",
+          "slug": "fried-in-coconut-oil"
+        },
+        {
+          "name": "Nendran banana Chips",
+          "slug": "nendran-banana-chips"
+        }
+      ],
+      "regular_price": "175.00",
+      "sale_price": "",
+      "short_description": "<ul>\n<li>\n<ul>\n<li>Fried in Gramiyum Coconut Oil</li>\n<li>Delivered fresh as its prepared daily based on order</li>\n<li>Crispy and tasty</li>\n<li>Mildly salted</li>\n</ul>\n<p>&nbsp;</li>\n<li>Ingredients : Coconut oil, Raw Banana, Himalayan Salt, Turmeric Powder</li>\n</ul>",
+      "description": "<h3>Why Buy nendran banana chips online from Gramiyum?</h3>\n<ul>\n<li>Fried in Gramiyum cold pressed coconut oil (Sulfur free)</li>\n<li>We do not reuse oil</li>\n<li>We use himalayan rock salt instead of regular table salt</li>\n<li>Prepared freshly daily based on order</li>\n<li>Guaranteed freshness as chips are packed in airtight pack and shipped through air for quick delivery</li>\n<li>Premium quality ingredients with best price</li>\n</ul>",
+      "weight": "0.25",
+      "attributes": [
+        {
+          "name": "weight",
+          "taxonomy": "pa_weight",
+          "options": [
+            "0.5 Kg",
+            "250 Gms"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "source_id": 345973,
+          "sku": "NEBC0500",
+          "attributes": {
+            "weight": "0-5-kg"
+          },
+          "regular_price": "320.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 939
+        },
+        {
+          "source_id": 345974,
+          "sku": "NEBC0250",
+          "attributes": {
+            "weight": "250-gms"
+          },
+          "regular_price": "175.00",
+          "sale_price": "",
+          "in_stock": true,
+          "stock_quantity": 929
+        }
+      ],
+      "default_attributes": {
+        "pa_weight": "0-5-kg"
+      }
+    },
+    {
+      "source_id": 21063,
+      "name": "Kadalai Mittai 200 Gms",
+      "slug": "kovilpatti-kadalai-mittai",
+      "type": "simple",
+      "sku": "KOKM0200",
+      "categories": [
+        "snacks"
+      ],
+      "image_count": 4,
+      "stock_quantity": 8508,
+      "tags": [],
+      "regular_price": "80.00",
+      "sale_price": "",
+      "short_description": "<p>Dry Groundnuts dipped and rolled through jaggery &amp; sugar syrup(stirred with cardamon, ginger), will take your taste buds to another planet for some time on every crunchy munch!!!</p>\n<p>Every bite of it shows the originality &amp; uniqueness by relishing yourself in the taste, this not just another Kadalai Mittai available in supermarkets! Feel the groundnut on every biteeee!!!</p>\n<p>Product weight: 200gms</p>",
+      "description": "<h2>Kadalai Mittai</h2>\n<p>Kadalai mittai is made all over the places and some brands even manufacture in factory and sell in super markets as kovilpatti kadalai mittai. But none of them can match the taste and quality of original kovilpatti kadalai mittai. It become famous through word of mouth just because of its unique taste. The recipe was originally prepared by Ponnambala Nadar around 1940. The current young experts and  their fathers learnt the trick from him and this is being now passed on to generations. Ponnambala Nadar had a small petti shop in market area. He decided to make kadalai mittai from the excess groundnut from his store. Since he is quality conscious, it become a hit slowly and over the years the kovilpatti kadalai mittai fame spread across the globe.</p>\n<h3>Why kadalai Mittai is different?</h3>\n<p>Kovilpatti kadalai mittai is made from jaggery and with all natural ingredients. Regular kadai mittai is made of white sugar. It made with 3 types of jaggery. All of them are melt and mixed at appropriate proportion to make the jaggery syrup.</p>",
+      "weight": ".200",
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "source_id": 459266,
+      "name": "Ayudha Pooja Sweet and Snack Combo pack – Preorder",
+      "slug": "sweet-and-snack-combo-pack",
+      "type": "simple",
+      "sku": "",
+      "categories": [
+        "buy-natural-combo-foods-online"
+      ],
+      "image_count": 2,
+      "stock_quantity": null,
+      "tags": [],
+      "regular_price": "899.00",
+      "sale_price": "799.00",
+      "short_description": "<p><strong>The Special Festival box contains:-</strong></p>\n<p>Special Ghee Mysorepak (100 g), Special Ghee Halwa (100 g), Badhusha (100 g), Special Mixture (100 g), Butter Murukku (100 g),Verkadalai Urundai (100 g) &amp; Ribbon Pakoda (100 g)</p>\n<p><strong style=\"color: red\">Please Note: This is a Pre-Order product.</strong></p>\n<p>Your order will be shipped on or after <strong>10th October 2026</strong> and will reach you on or after <strong>16th October 2026</strong>.</p>\n<p><strong style=\"color: red\">Pre-Order allowed till 10th October 2026</strong> for Karnataka, Andhra Pradesh, Telangana, Kerala, and Tamil Nadu.</p>\n<p><strong style=\"color: red\">Pre-Order allowed till 7th October 2026</strong> for Rest of India.</p>",
+      "description": "<h2><strong>Festival Sweet &amp; Snack Combo Pack | Ayudha Pooja Special</strong></h2>\n<p>Celebrate Ayudha Pooja with a mix of traditional sweets and savoury snacks made for sharing. Set it out for family and guests, bring it to a festive gathering, or gift it to someone you love.</p>\n<p>A festive gift box is included free with every combo pack, so it’s ready to give as soon as it arrives.</p>\n<p>The bowls and festive decorations shown are for presentation. Please refer to the product details for the exact items and quantities included.</p>\n<p><strong>For Bulk/B2B special rate contact us <a href=\"http://wa.link/gcxf99\">9500118443</a></strong></p>\n<h3><strong>Ingredients</strong></h3>\n<p>Badusha &#8211; Maida, sugar, ghee, refined oil<br />\nButter Murukku &#8211; Raw rice flour, besan flour, salt, jeera, asafoetida, butter, coconut oil, refined oil<br />\nGhee Mysorepak &#8211; Besan flour, ghee, sugar<br />\nGhee Halwa &#8211; Wheat, sugar, cardamom powder, ghee, cashew<br />\nMixture &#8211; Besan flour, omam powder, salt, roasted peanut, curry leaves, corn flakes, puffed poha, roasted gram, refined oil<br />\nVerkadalai Urundai &#8211; Peanut, vellam (jaggery), elachi powder<br />\nRibbon Pakoda &#8211; Raw rice, besan flour, gram flour, chilli paste, salt, butter, refined oil</p>",
+      "weight": "",
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "source_id": 126018,
+      "name": "The Noodles Combo",
+      "slug": "the-noodles-combo",
+      "type": "simple",
+      "sku": "TNC4000",
+      "categories": [
+        "buy-natural-combo-foods-online"
+      ],
+      "image_count": 1,
+      "stock_quantity": 4718,
+      "tags": [],
+      "regular_price": "375.00",
+      "sale_price": "325.00",
+      "short_description": "<p>The Noodles Combo contains 175 gms of 5 noodles,</p>\n<ul>\n<li><a href=\"https://gramiyum.in/product/buy-mixed-millet-noodles/\">Mixed Millet Noodles | Sirudhaniya Noodles &#8211; 175 gms</a></li>\n<li><a href=\"https://www.gramiyum.in/product/buy-barnyard-noodles/\">Barnyard Noodles | Kuthiravali Noodles &#8211; 175 gms</a></li>\n<li><a href=\"https://www.gramiyum.in/product/buy-kodo-millet-noodles-online/\">Kodo Millet Noodles | Varagu Noodles &#8211; 175 gms</a></li>\n<li><a href=\"https://www.gramiyum.in/product/buy-little-millet-noodles-online/\">Little Millet Noodles | Saamai Noodles &#8211; 175 gms</a></li>\n<li><a href=\"https://www.gramiyum.in/product/buy-sorghum-noodles-cholam-noodles/\">Sorghum Noodles | Cholam Noodles &#8211; 175 gms</a></li>\n</ul>",
+      "description": "",
+      "weight": ".875",
+      "attributes": [],
+      "variations": []
+    }
+  ]
+}

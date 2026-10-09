@@ -1,0 +1,58 @@
+services:
+  db:
+    image: mysql:8
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  wordpress:
+    image: wordpress:latest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    # 8081 so this can run alongside organic-store-wp (8080).
+    ports:
+      - "8081:80"
+    environment: &wp-env
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      # WP_HOME/WP_SITEURL live in wp-config-extra.php so they can change
+      # (e.g. ngrok URL rotation) without recreating the container.
+      WORDPRESS_CONFIG_EXTRA: |
+        if (file_exists('/var/www/html/wp-config-extra.php')) {
+          require_once('/var/www/html/wp-config-extra.php');
+        }
+    volumes: &wp-volumes
+      - wp-core:/var/www/html
+      - ./wp-content/themes/mittipure-storefront:/var/www/html/wp-content/themes/mittipure-storefront
+      - ./wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./wp-config-extra.php:/var/www/html/wp-config-extra.php
+      - ./scripts:/scripts:ro
+
+  # One-off WP-CLI runner sharing the WordPress files and DB:
+  #   docker compose run --rm cli bash /scripts/setup.sh
+  cli:
+    image: wordpress:cli
+    profiles: ["cli"]
+    user: "33:33"
+    depends_on:
+      - wordpress
+    environment: *wp-env
+    volumes: *wp-volumes
+
+volumes:
+  mysql-data:
+  wp-core:
