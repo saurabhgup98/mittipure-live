@@ -29,6 +29,8 @@ services:
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
       WORDPRESS_DB_USER: ${MYSQL_USER}
       WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      # APTI site secret key for mu-plugins/apti-engage.php (kept in .env).
+      APTI_SECRET_KEY: ${APTI_SECRET_KEY:-}
       # WP_HOME/WP_SITEURL live in wp-config-extra.php so they can change
       # (e.g. ngrok URL rotation) without recreating the container.
       WORDPRESS_CONFIG_EXTRA: |
