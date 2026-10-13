@@ -10,8 +10,9 @@
  *   resend:        the same form + sub_action=resend_otp
  *
  * OTPs to a phone are real SMS through APTI (Apti_Engage::otp, apti-engage.php):
- * APTI sends a 6-digit code and checks it. Only a password reset by email
- * (no SMS) still uses the fixed test code EMAIL_OTP.
+ * APTI sends a 6-digit code and checks it. The test code TEST_OTP (654321) is
+ * also accepted for any phone. A password reset by email (no SMS) uses the
+ * fixed test code EMAIL_OTP.
  *
  * Responses (wp_send_json_* shape Digits' script.min.js reads):
  *   next step:  {success:true,  data:{html, fill:{field:value}}}
@@ -26,6 +27,9 @@ if (!defined('ABSPATH')) {
 final class Gram_Digits
 {
     const EMAIL_OTP    = '123456';
+    // Test code: accepted for any phone, for numbers that get no SMS (every
+    // other code is checked by APTI). Remove it to require real SMS only.
+    const TEST_OTP     = '654321';
     const NONCE_ACTION = 'gram_digits_form';
     const VER          = '1.1.0';
 
@@ -254,6 +258,9 @@ final class Gram_Digits
     {
         if (!preg_match('/^\d{6}$/', $code)) {
             self::fail('Invalid OTP!');
+        }
+        if ($code === self::TEST_OTP) {
+            return;
         }
         [$ok, $message] = Apti_Engage::otp('verify', $full_phone, $code);
         if (!$ok) {

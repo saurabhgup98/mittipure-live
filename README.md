@@ -63,6 +63,7 @@ comments that say which gramiyum.in markup a file copies.
 - Page: `/?login=true&redirect_to&page=1` (logged-out `/my-account/` redirects there, 302).
 - **OTP is a real SMS** (6 digits) sent through APTI (`apti-engage.php` → `/sdk/v1/otp/send|verify`,
   needs `APTI_SECRET_KEY`). Only a password reset by email still uses the fixed code `123456`.
+  **Test code `654321`** is also accepted for any phone (numbers that get no SMS).
 - All steps POST to `/wp-admin/admin-ajax.php` with `action=digits_forms_ajax`,
   `type=login|register|forgot`, nonce field `digits_form`.
 - Responses:
