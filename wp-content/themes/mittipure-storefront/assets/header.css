@@ -116,6 +116,9 @@ body {
 }
 #tbay-header .title-account { grid-column: 2; font-size: 13px; font-weight: 600; }
 #tbay-header .text-account { grid-column: 2; font-size: 13px; color: var(--gram-muted); }
+/* Test-store addition: Logout under the name (logged in only). */
+#tbay-header .mp-logout-link { display: block; margin: 2px 0 0 30px; font-size: 12px; font-weight: 600; color: var(--gram-muted); text-decoration: underline; }
+#tbay-header .mp-logout-link:hover { color: var(--gram-ink); }
 #tbay-header .title-account .tb-icon-zz-za-user {
 	grid-row: 1 / span 2;
 	position: absolute;

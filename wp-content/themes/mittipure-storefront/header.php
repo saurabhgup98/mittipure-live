@@ -132,6 +132,10 @@ $gram_cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
 												<span class="text-account">Login/Register</span>
 											<?php endif; ?>
 										</a>
+										<?php if (is_user_logged_in()) : ?>
+											<?php /* Not on gramiyum.in (its logout is inside My Account): a direct way out of the test store. */ ?>
+											<a href="<?php echo esc_url(wp_logout_url(home_url('/'))); ?>" class="mp-logout-link">Logout</a>
+										<?php endif; ?>
 									</div>
 								</div>
 							</div>
