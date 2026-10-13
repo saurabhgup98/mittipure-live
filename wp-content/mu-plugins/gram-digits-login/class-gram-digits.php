@@ -7,6 +7,11 @@
  *   login step 1:  action_type=phone, login_digt_countrycode, digits_phone   (or action_type=email, digits_email)
  *   login step 2:  digits_step_1_type/value (+ digits_step_2_type=sms_otp, sms_otp)  or password
  *   register:      digt_countrycode, phone, email, digits_reg_name, digits_reg_password, then sms_otp
+ *   resend:        the same form + sub_action=resend_otp
+ *
+ * OTPs to a phone are real SMS through APTI (Apti_Engage::otp, apti-engage.php):
+ * APTI sends a 6-digit code and checks it. Only a password reset by email
+ * (no SMS) still uses the fixed test code EMAIL_OTP.
  *
  * Responses (wp_send_json_* shape Digits' script.min.js reads):
  *   next step:  {success:true,  data:{html, fill:{field:value}}}
@@ -20,9 +25,9 @@ if (!defined('ABSPATH')) {
 
 final class Gram_Digits
 {
-    const OTP          = '123456';
+    const EMAIL_OTP    = '123456';
     const NONCE_ACTION = 'gram_digits_form';
-    const VER          = '1.0.1';
+    const VER          = '1.1.0';
 
     public static function init(): void
     {
@@ -108,6 +113,9 @@ final class Gram_Digits
         if ($sub_action === 'start_passwordless_login') {
             self::fail('No passkey is registered for this device. Please continue with your phone number.', true);
         }
+        if ($sub_action === 'resend_otp') {
+            self::resend_otp();
+        }
 
         switch (self::post('type')) {
             case 'login':
@@ -151,6 +159,7 @@ final class Gram_Digits
             if (!self::user_by_phone($phone['full'])) {
                 self::fail('Please signup before logging in.');
             }
+            self::send_sms_otp($phone['full']);
             self::next_step(self::otp_step_html($phone), [$type_key => 'phone', $value_key => $phone['full']]);
         }
 
@@ -164,8 +173,12 @@ final class Gram_Digits
             if (!wp_check_password(self::post('password', false), $user->user_pass, $user->ID)) {
                 self::fail('Invalid Password');
             }
-        } elseif (self::post('sms_otp') !== self::OTP) {
-            self::fail('Invalid OTP!');
+        } elseif ($step1_type === 'email') {
+            if (self::post('sms_otp') !== self::EMAIL_OTP) {
+                self::fail('Invalid OTP!');
+            }
+        } else {
+            self::check_sms_otp($value, self::post('sms_otp'));
         }
 
         self::log_in($user->ID, 'login');
@@ -190,14 +203,12 @@ final class Gram_Digits
             self::fail('Please fill all the required details.');
         }
 
-        // Step 1 (no OTP yet): send the OTP step.
+        // Step 1 (no OTP yet): text the OTP and show its step.
         if (self::post('sms_otp') === '' && self::post('dig_otp') === '') {
+            self::send_sms_otp($phone['full']);
             self::next_step(self::otp_step_html($phone), []);
         }
-        $otp = self::post('sms_otp') !== '' ? self::post('sms_otp') : self::post('dig_otp');
-        if ($otp !== self::OTP) {
-            self::fail('Invalid OTP!');
-        }
+        self::check_sms_otp($phone['full'], self::post('sms_otp') !== '' ? self::post('sms_otp') : self::post('dig_otp'));
 
         $password = self::post('digits_reg_password', false);
         $user_id  = wp_insert_user([
@@ -222,6 +233,53 @@ final class Gram_Digits
         }
 
         self::log_in($user_id, 'register');
+    }
+
+    /* ----------------------------------------------------------------- otp */
+
+    private static function send_sms_otp(string $full_phone): void
+    {
+        // An Indian mobile only (+91 and 10 digits from 6–9): APTI would read a
+        // shorter number with "91" in front as a different 10-digit number.
+        if (!preg_match('/^\+91[6-9]\d{9}$/', $full_phone)) {
+            self::fail('Invalid Mobile Number!');
+        }
+        [$ok, $message] = Apti_Engage::otp('send', $full_phone);
+        if (!$ok) {
+            self::fail($message);
+        }
+    }
+
+    private static function check_sms_otp(string $full_phone, string $code): void
+    {
+        if (!preg_match('/^\d{6}$/', $code)) {
+            self::fail('Invalid OTP!');
+        }
+        [$ok, $message] = Apti_Engage::otp('verify', $full_phone, $code);
+        if (!$ok) {
+            self::fail($message);
+        }
+    }
+
+    /** "Resend OTP": the phone of the form's current step, texted again. */
+    private static function resend_otp(): void
+    {
+        if (self::post('type') === 'register') {
+            $phone = self::normalize_phone(self::post('digt_countrycode'), self::post('phone'));
+            $full  = $phone ? $phone['full'] : '';
+        } else {
+            $forgot = self::post('type') === 'forgot';
+            $type   = self::post($forgot ? 'forgot_pass_method' : 'digits_step_1_type');
+            $full   = $type === 'phone' ? self::post($forgot ? 'forgot_password_value' : 'digits_step_1_value') : '';
+            if ($type === 'email') {
+                self::fail('Use the code from your email.', true);
+            }
+        }
+        if ($full === '') {
+            self::fail('Invalid Mobile Number!');
+        }
+        self::send_sms_otp($full);
+        wp_send_json_success(['resent' => true, 'message' => 'OTP sent again']);
     }
 
     /* ------------------------------------------------------------- helpers */

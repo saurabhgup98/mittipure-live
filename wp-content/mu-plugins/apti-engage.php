@@ -97,6 +97,46 @@ final class Apti_Engage
         return is_array($json['data'] ?? null) ? $json['data'] : [];
     }
 
+    /**
+     * Login OTP by real SMS through APTI (POST /sdk/v1/otp/send | /otp/verify):
+     * APTI makes the 6-digit code, texts it and checks it; it also limits
+     * resends (30 s apart, 5 an hour) and wrong tries. Used by the login
+     * plugin (gram-digits-login). Returns [ok, message] — APTI's own message
+     * for the customer's mistakes (400/429), a generic one otherwise.
+     */
+    public static function otp(string $step, string $phone, string $code = ''): array
+    {
+        $unavailable = "Couldn't reach the OTP service. Please try again.";
+        $key = self::secret_key();
+        if ($key === '') {
+            return [false, "Login by OTP isn't available right now."];
+        }
+        $body = ['mobile' => $phone];
+        if ($step === 'verify') {
+            $body['otp'] = $code;
+        }
+        $response = wp_remote_post(self::api_base() . '/sdk/v1/otp/' . ($step === 'verify' ? 'verify' : 'send'), [
+            'timeout' => 10,
+            'headers' => ['Content-Type' => 'application/json', 'x-apti-key' => $key],
+            'body'    => wp_json_encode($body),
+        ]);
+        if (is_wp_error($response)) {
+            error_log('[apti-engage] otp/' . $step . ' failed: ' . $response->get_error_message());
+            return [false, $unavailable];
+        }
+        $status = wp_remote_retrieve_response_code($response);
+        if ($status >= 200 && $status < 300) {
+            return [true, ''];
+        }
+        $json = json_decode(wp_remote_retrieve_body($response), true);
+        $msg  = $json['error']['msg'] ?? '';
+        if (($status === 400 || $status === 429) && $msg !== '') {
+            return [false, $msg];
+        }
+        error_log('[apti-engage] otp/' . $step . ' refused: ' . $status . ' ' . $msg);
+        return [false, $unavailable];
+    }
+
     /* ----------------------------------------------------------- helpers */
 
     /** The customer's phone with country code ("+919000000002"), or ''. */

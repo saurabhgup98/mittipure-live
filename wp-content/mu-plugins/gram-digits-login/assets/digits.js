@@ -120,9 +120,23 @@ jQuery(function ($) {
 
 	$(document).on('click', '.digits-form_resend_otp', function (e) {
 		e.preventDefault();
-		if ($(this).hasClass('digits_resend_disabled')) return;
-		startResendTimer($(this).closest('.digits_secure_login_auth_wrapper'));
-		showDigMessage('OTP sent again (test site: use 123456)', 1);
+		if ($(this).hasClass('digits_resend_disabled') || busy) return;
+		var $step = $(this).closest('.digits_secure_login_auth_wrapper');
+		var data = $(this).closest('form').serializeArray();
+		data.push({ name: 'sub_action', value: 'resend_otp' });
+		busy = true;
+		$.ajax({ type: 'post', url: dig_script.ajax_url, data: data })
+			.done(function (res) {
+				var r = res && res.data ? res.data : {};
+				if (res && res.success) {
+					startResendTimer($step);
+					showDigMessage(r.message || 'OTP sent again', 1);
+				} else {
+					showDigMessage(r.message || dig_script.ErrorPleasetryagainlater, r.notice ? 2 : 3);
+				}
+			})
+			.fail(function () { showDigMessage(dig_script.ErrorPleasetryagainlater, 3); })
+			.always(function () { busy = false; });
 	});
 
 	/* ---------- back from a step ---------- */
