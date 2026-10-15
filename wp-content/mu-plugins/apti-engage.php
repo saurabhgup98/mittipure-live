@@ -18,8 +18,9 @@
  *                - referral cashback, as on Sera Stay: a shared link
  *                  (?ref_id=…) is remembered in a cookie and sent with the
  *                  next login, so APTI records who referred a new customer
- *                  and credits them when that customer orders; the
- *                  customer's whole available balance comes off at checkout
+ *                  and credits them when that customer orders; at checkout
+ *                  the customer presses Apply in the Referral cashback box
+ *                  and their whole available balance comes off
  *                  ("Referral cashback", ≥ ₹1 left to pay — held on the
  *                  order, used once it's placed/paid, given back if it's
  *                  cancelled or fails); /refer/<referral id> opens WhatsApp
@@ -50,6 +51,11 @@ final class Apti_Engage
     const REF_COOKIE_DAYS    = 30;
     const CASHBACK_FEE_NAME  = 'Referral cashback';
     const CASHBACK_SESSION   = 'apti_cashback';
+    const CASHBACK_USE_SESSION = 'apti_cashback_use';
+    const CASHBACK_AJAX_ACTION = 'apti_cashback_toggle';
+    // Set when the cart WhatsApp goes out; the next cart/checkout visit (the
+    // customer coming back from it) shows the reply-Yes/OK notice once.
+    const RETURN_NOTICE_META = '_apti_recovery_return_notice';
     // Order-confirmed WhatsApp: "Expected Delivery" this many days out.
     const DELIVERY_DAYS      = 5;
     const ITEMS_MAX_CHARS    = 120;
@@ -62,6 +68,10 @@ final class Apti_Engage
         add_action('template_redirect', [self::class, 'refer_page'], 5);
         add_action('woocommerce_account_dashboard', [self::class, 'account_cashback']);
         add_action('woocommerce_cart_calculate_fees', [self::class, 'apply_cashback'], 20);
+        add_action('woocommerce_review_order_before_payment', [self::class, 'cashback_box']);
+        add_filter('woocommerce_cart_totals_get_fees_from_cart_taxes', [self::class, 'untaxed_fee'], 10, 2);
+        add_action('wp_ajax_' . self::CASHBACK_AJAX_ACTION, [self::class, 'ajax_cashback_toggle']);
+        add_action('wp_footer', [self::class, 'return_notice']);
         add_action('woocommerce_checkout_order_processed', [self::class, 'reserve_cashback'], 20, 3);
         add_action('woocommerce_store_api_checkout_order_processed', [self::class, 'reserve_cashback'], 20);
         foreach (['woocommerce_order_status_cancelled', 'woocommerce_order_status_failed'] as $hook) {
@@ -286,13 +296,19 @@ final class Apti_Engage
         }
     }
 
+    /** The customer pressed Apply on the checkout's cashback box (as on Sera Stay). */
+    private static function cashback_chosen(): bool
+    {
+        return function_exists('WC') && WC() && WC()->session && WC()->session->get(self::CASHBACK_USE_SESSION) === 'yes';
+    }
+
     /**
-     * The whole available balance off the order (whole rupees, at least ₹1
-     * left to pay), after the WhatsApp offer.
+     * Applied: the whole available balance off the order (whole rupees, at
+     * least ₹1 left to pay), after the WhatsApp offer.
      */
     public static function apply_cashback($cart): void
     {
-        if ((is_admin() && !wp_doing_ajax()) || !is_user_logged_in() || !$cart || $cart->is_empty()) {
+        if ((is_admin() && !wp_doing_ajax()) || !is_user_logged_in() || !$cart || $cart->is_empty() || !self::cashback_chosen()) {
             return;
         }
         $balance = self::cashback_balance(get_current_user_id());
@@ -309,6 +325,79 @@ final class Apti_Engage
         if ($off > 0) {
             $cart->add_fee(self::CASHBACK_FEE_NAME, -$off, false);
         }
+    }
+
+    /**
+     * Checkout's "Referral cashback" box: the balance and Apply / Remove.
+     * It sits in the payment section, which WooCommerce redraws on
+     * update_checkout, so the button just flips the choice and refreshes.
+     */
+    public static function cashback_box(): void
+    {
+        if (!is_user_logged_in()) {
+            return;
+        }
+        $balance = self::cashback_balance(get_current_user_id());
+        if (!$balance) {
+            return;
+        }
+        $available = floor((float) ($balance['available'] ?? 0));
+        $pending = floor((float) ($balance['pending'] ?? 0));
+        $applied = 0.0;
+        if (self::cashback_chosen() && WC()->cart) {
+            foreach (WC()->cart->get_fees() as $fee) {
+                if ($fee->name === self::CASHBACK_FEE_NAME) {
+                    $applied = abs((float) $fee->amount);
+                }
+            }
+        }
+        $rupees = static function ($v): string {
+            return '₹' . number_format_i18n((float) $v, 0);
+        };
+        ?>
+        <div id="apti-cashback-box" data-cashback-available="<?php echo esc_attr($available); ?>" style="margin:0 0 1em;padding:.85em 1em;border:1px solid #cfe3c4;border-radius:8px;background:#f5faf2">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <div>
+                    <strong>Referral cashback</strong><br>
+                    <span id="apti-cashback-balance"><?php echo esc_html($applied > 0 ? $rupees($applied) . ' applied' : $rupees($available) . ' available'); ?></span>
+                </div>
+                <?php if ($applied > 0) : ?>
+                    <button type="button" class="button apti-cashback-toggle" id="apti-cashback-remove" data-use="no">Remove</button>
+                <?php else : ?>
+                    <button type="button" class="button apti-cashback-toggle" id="apti-cashback-apply" data-use="yes" <?php disabled($available < 1); ?>>Apply</button>
+                <?php endif; ?>
+            </div>
+            <?php if ($pending > 0) : ?>
+                <p style="margin:.5em 0 0;font-size:.9em;opacity:.75"><?php echo esc_html($rupees($pending)); ?> more is pending and becomes available later.</p>
+            <?php endif; ?>
+        </div>
+        <?php
+    }
+
+    public static function ajax_cashback_toggle(): void
+    {
+        check_ajax_referer(self::CASHBACK_AJAX_ACTION);
+        self::load_cart();
+        if (!is_user_logged_in() || !WC()->session) {
+            wp_send_json(['ok' => false], 400);
+        }
+        $use = isset($_POST['use']) && $_POST['use'] === 'yes';
+        WC()->session->set(self::CASHBACK_USE_SESSION, $use ? 'yes' : 'no');
+        self::forget_cashback(); // a fresh balance for the redraw
+        wp_send_json(['ok' => true]);
+    }
+
+    /**
+     * WooCommerce spreads GST over a negative fee even when it's added as
+     * not taxable, so ₹100 came off as ₹105. Ours are exact rupee amounts.
+     */
+    public static function untaxed_fee($taxes, $fee)
+    {
+        $name = is_object($fee) && isset($fee->object->name) ? (string) $fee->object->name : '';
+        if ($name === self::CASHBACK_FEE_NAME || strpos($name, self::FEE_NAME) === 0) {
+            return [];
+        }
+        return $taxes;
     }
 
     /** The cashback fee on an order, or null. */
@@ -332,6 +421,10 @@ final class Apti_Engage
         if (!$order || !$order->get_customer_id() || $order->get_meta('_apti_cashback_status') !== '') {
             return;
         }
+        if (function_exists('WC') && WC() && WC()->session) {
+            WC()->session->__unset(self::CASHBACK_USE_SESSION); // the next order asks again
+        }
+        delete_user_meta($order->get_customer_id(), self::RETURN_NOTICE_META);
         $fee = self::cashback_fee($order);
         if (!$fee) {
             return;
@@ -403,7 +496,7 @@ final class Apti_Engage
             <p style="margin:.25em 0">Available: <strong id="apti-cashback-available"><?php echo esc_html($rupees($balance['available'] ?? 0)); ?></strong>
                 <?php if ((float) ($balance['pending'] ?? 0) > 0) : ?> · Pending: <span id="apti-cashback-pending"><?php echo esc_html($rupees($balance['pending'])); ?></span><?php endif; ?></p>
             <p style="margin:.25em 0">Your referral ID: <code id="apti-referral-id"><?php echo esc_html($balance['referral_id']); ?></code></p>
-            <p style="margin:.75em 0 0">Your available cashback comes off your next order automatically.
+            <p style="margin:.75em 0 0">Use it on your next order: press Apply in the Referral cashback box at checkout.
                 <a id="apti-refer-link" href="<?php echo esc_url(home_url('/refer/' . $balance['referral_id'])); ?>">Refer &amp; Earn</a></p>
         </div>
         <?php
@@ -501,14 +594,16 @@ final class Apti_Engage
             'action'  => self::AJAX_ACTION,
             'nonce'   => wp_create_nonce(self::AJAX_ACTION),
             'afterMs' => self::RECOVERY_AFTER_MS,
+            'cashbackAction' => self::CASHBACK_AJAX_ACTION,
+            'cashbackNonce'  => wp_create_nonce(self::CASHBACK_AJAX_ACTION),
         ]);
         // 25 s on the checkout without placing the order, or leaving it
         // (tab closed or another page) → the cart recovery WhatsApp. Placing
         // the order isn't leaving; a failed attempt (checkout_error) is.
-        // For testing, a notice (once per tab) and a status line say to wait
-        // for that message and reply Yes/OK to it before ordering: both are
-        // Marketing templates, and the reply is what lets the order
-        // confirmation through.
+        // For testing, a status line counts down to that message and then says
+        // to reply Yes/OK to it before ordering: both are Marketing
+        // templates, and the reply is what lets the order confirmation
+        // through. Coming back from the message shows return_notice().
         wp_add_inline_script('apti-engage', <<<JS
 (function () {
   var c = {$config};
@@ -554,34 +649,21 @@ final class Apti_Engage
   }
   setTimeout(function () { send(false); }, c.afterMs);
 
-  var seenKey = 'apti_whatsapp_notice_seen';
-  var seen = false;
-  try { seen = !!sessionStorage.getItem(seenKey); } catch (e) {}
-  if (!seen) {
-    var box = document.createElement('div');
-    box.id = 'apti-whatsapp-notice';
-    box.setAttribute('role', 'dialog');
-    box.setAttribute('aria-modal', 'true');
-    box.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);padding:16px';
-    box.innerHTML = '<div style="width:100%;max-width:440px;background:#fff;border-radius:16px;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,.25);color:#24351f;font-size:15px;line-height:1.55">'
-      + '<p style="margin:0;font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#7a8b3a">Before you order</p>'
-      + '<h2 style="margin:4px 0 14px;font-size:20px">One quick step to complete the test</h2>'
-      + '<ol style="margin:0 0 14px 1.2em;padding:0">'
-      + '<li style="margin-bottom:8px">Stay on this page for about <strong>25 seconds</strong>. You\'ll get the cart message on WhatsApp.</li>'
-      + '<li style="margin-bottom:8px">Reply <strong>Yes</strong> or <strong>OK</strong> to that message. This lets us send your order confirmation there.</li>'
-      + '<li>After replying, wait <strong>about 1 minute</strong>, then place your order.</li>'
-      + '</ol>'
-      + '<p style="margin:0;padding:10px 12px;border-radius:10px;background:#f6f1e7">You\'ll then receive the order confirmation on WhatsApp, with your referral link.</p>'
-      + '<button type="button" id="apti-whatsapp-notice-ok" class="button" style="margin-top:18px;width:100%;height:46px;border:0;border-radius:10px;background:#0b7a3e;color:#fff;font-weight:600">OK</button>'
-      + '</div>';
-    document.body.appendChild(box);
-    var ok = document.getElementById('apti-whatsapp-notice-ok');
-    ok.focus();
-    ok.addEventListener('click', function () {
-      try { sessionStorage.setItem(seenKey, '1'); } catch (e) {}
-      box.parentNode.removeChild(box);
-    });
-  }
+  // Referral cashback box: Apply / Remove, then WooCommerce redraws totals.
+  document.addEventListener('click', function (e) {
+    var btn = e.target && e.target.closest ? e.target.closest('.apti-cashback-toggle') : null;
+    if (!btn) return;
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = btn.getAttribute('data-use') === 'yes' ? 'Applying…' : 'Removing…';
+    var data = new FormData();
+    data.append('action', c.cashbackAction);
+    data.append('_ajax_nonce', c.cashbackNonce);
+    data.append('use', btn.getAttribute('data-use'));
+    fetch(c.url, { method: 'POST', body: data, credentials: 'same-origin' })
+      .catch(function () {})
+      .then(function () { if (window.jQuery) jQuery(document.body).trigger('update_checkout'); });
+  });
   document.addEventListener('submit', function (e) {
     if (e.target && e.target.matches && e.target.matches('form.checkout')) placing = true;
   }, true);
@@ -591,6 +673,42 @@ final class Apti_Engage
   window.addEventListener('pagehide', function () { send(true); });
 })();
 JS);
+    }
+
+    /**
+     * The customer is back on the cart or checkout after the cart WhatsApp
+     * went out (its "Complete Order" button opens the cart): once, ask them
+     * to reply Yes/OK to it first, so the order confirmation can reach them.
+     */
+    public static function return_notice(): void
+    {
+        if (!is_user_logged_in() || !function_exists('is_cart') || !(is_cart() || is_checkout()) || is_wc_endpoint_url('order-received')) {
+            return;
+        }
+        $user_id = get_current_user_id();
+        $sent_at = (int) get_user_meta($user_id, self::RETURN_NOTICE_META, true);
+        if (!$sent_at) {
+            return;
+        }
+        delete_user_meta($user_id, self::RETURN_NOTICE_META);
+        if (time() - $sent_at > DAY_IN_SECONDS || !WC()->cart || WC()->cart->is_empty()) {
+            return;
+        }
+        ?>
+        <div id="apti-whatsapp-return-notice" role="dialog" aria-modal="true" aria-labelledby="apti-whatsapp-return-title" style="position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);padding:16px">
+            <div style="width:100%;max-width:440px;background:#fff;border-radius:16px;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,.25);color:#24351f;font-size:15px;line-height:1.55">
+                <p style="margin:0;font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#7a8b3a">Before you order</p>
+                <h2 id="apti-whatsapp-return-title" style="margin:4px 0 14px;font-size:20px">One quick step to complete the test</h2>
+                <ol style="margin:0 0 14px 1.2em;padding:0">
+                    <li style="margin-bottom:8px">Reply <strong>Yes</strong> or <strong>OK</strong> to the cart message you received on WhatsApp. This lets us send your order confirmation there.</li>
+                    <li>After replying, wait <strong>about 1 minute</strong>, then place your order.</li>
+                </ol>
+                <p style="margin:0;padding:10px 12px;border-radius:10px;background:#f6f1e7">You'll then receive the order confirmation on WhatsApp, with your referral link.</p>
+                <button type="button" id="apti-whatsapp-return-ok" style="margin-top:18px;width:100%;height:46px;border:0;border-radius:10px;background:#0b7a3e;color:#fff;font-weight:600;cursor:pointer">OK</button>
+            </div>
+        </div>
+        <script>(function(){var b=document.getElementById('apti-whatsapp-return-ok');b.focus();b.addEventListener('click',function(){var n=document.getElementById('apti-whatsapp-return-notice');n.parentNode.removeChild(n);});})();</script>
+        <?php
     }
 
     public static function ajax_cart_recovery(): void
@@ -617,9 +735,12 @@ JS);
             $body['customer_name'] = $name; // optional: APTI says "User" without it
         }
         $data = self::call('POST', '/sdk/v1/engage/cart-recovery', $body);
-        if (!empty($data['sent']) && WC()->session) {
-            // The discount is theirs now — look it up again on the next cart view.
-            WC()->session->__unset(self::SESSION_KEY);
+        if (!empty($data['sent'])) {
+            update_user_meta($user_id, self::RETURN_NOTICE_META, time());
+            if (WC()->session) {
+                // The discount is theirs now — look it up again on the next cart view.
+                WC()->session->__unset(self::SESSION_KEY);
+            }
         }
         wp_send_json(['sent' => !empty($data['sent']), 'reason' => $data['reason'] ?? ($data === null ? 'APTI unreachable' : null)]);
     }
