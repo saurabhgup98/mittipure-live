@@ -11,7 +11,19 @@
  *                  in the admin
  *                - that discount is applied to the cart automatically while
  *                  it's unused (24 h), and marked used on the order
- *                - a paid order → `payment_completed`
+ *                - a placed order (COD too) → `payment_completed` (APTI adds
+ *                  the referral cashback rule set in the admin) and the
+ *                  order-confirmed WhatsApp (mittipure_order_confirm, once
+ *                  per order: Buy Again + Refer & Earn buttons)
+ *                - referral cashback, as on Sera Stay: a shared link
+ *                  (?ref_id=…) is remembered in a cookie and sent with the
+ *                  next login, so APTI records who referred a new customer
+ *                  and credits them when that customer orders; the
+ *                  customer's whole available balance comes off at checkout
+ *                  ("Referral cashback", ≥ ₹1 left to pay — held on the
+ *                  order, used once it's placed/paid, given back if it's
+ *                  cancelled or fails); /refer/<referral id> opens WhatsApp
+ *                  share with their link; My Account shows the balance
  *
  * Config: APTI_API_BASE (optional constant, defaults to APTI dev) and the
  * secret key from the APTI_SECRET_KEY environment variable (local Docker:
@@ -33,10 +45,28 @@ final class Apti_Engage
     const SESSION_KEY        = 'apti_recovery_discount';
     const FEE_NAME           = 'WhatsApp offer';
     const AJAX_ACTION        = 'apti_cart_recovery';
+    // Referral cashback. STYXKEY_ cookies reach PHP through Pantheon's edge.
+    const REF_COOKIE         = 'STYXKEY_apti_ref';
+    const REF_COOKIE_DAYS    = 30;
+    const CASHBACK_FEE_NAME  = 'Referral cashback';
+    const CASHBACK_SESSION   = 'apti_cashback';
+    // Order-confirmed WhatsApp: "Expected Delivery" this many days out.
+    const DELIVERY_DAYS      = 5;
+    const ITEMS_MAX_CHARS    = 120;
+    const BRAND              = 'MittiPure';
 
     public static function init(): void
     {
         add_action('wp_login', [self::class, 'on_login'], 10, 2);
+        add_action('wp_head', [self::class, 'ref_script'], 1);
+        add_action('template_redirect', [self::class, 'refer_page'], 5);
+        add_action('woocommerce_account_dashboard', [self::class, 'account_cashback']);
+        add_action('woocommerce_cart_calculate_fees', [self::class, 'apply_cashback'], 20);
+        add_action('woocommerce_checkout_order_processed', [self::class, 'reserve_cashback'], 20, 3);
+        add_action('woocommerce_store_api_checkout_order_processed', [self::class, 'reserve_cashback'], 20);
+        foreach (['woocommerce_order_status_cancelled', 'woocommerce_order_status_failed'] as $hook) {
+            add_action($hook, [self::class, 'release_cashback']);
+        }
         add_action('wp_enqueue_scripts', [self::class, 'checkout_script']);
         add_action('wp_ajax_' . self::AJAX_ACTION, [self::class, 'ajax_cart_recovery']);
         add_action('woocommerce_cart_calculate_fees', [self::class, 'apply_discount']);
@@ -151,6 +181,26 @@ final class Apti_Engage
         return '';
     }
 
+    /**
+     * An Indian mobile as "+91XXXXXXXXXX", or '' — only 10 digits starting
+     * 6–9 (APTI reads anything else as a different number).
+     */
+    private static function india_mobile(string $phone): string
+    {
+        $digits = preg_replace('/\D/', '', $phone);
+        if (strlen($digits) === 12 && strpos($digits, '91') === 0) {
+            $digits = substr($digits, 2);
+        }
+        return preg_match('/^[6-9]\d{9}$/', $digits) ? '+91' . $digits : '';
+    }
+
+    /** The referral id from a shared link this browser came in on, or ''. */
+    private static function ref_id(): string
+    {
+        $ref = isset($_COOKIE[self::REF_COOKIE]) ? sanitize_text_field(wp_unslash($_COOKIE[self::REF_COOKIE])) : '';
+        return preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $ref) ? strtolower($ref) : '';
+    }
+
     // Stable id for the logged-in customer, sent as APTI's visitor id so their
     // login and orders link to one record.
     private static function visitor_id(int $user_id): string
@@ -170,15 +220,264 @@ final class Apti_Engage
     /** Phone or email login (and registration): APTI's customer record. */
     public static function on_login($user_login, $user): void
     {
-        if (!$user instanceof WP_User) {
-            return;
+        if ($user instanceof WP_User) {
+            self::track_login($user->ID, false);
         }
-        $body = ['event' => 'login_success', 'visitor_id' => self::visitor_id($user->ID)];
-        $phone = self::user_phone($user->ID);
+    }
+
+    /**
+     * login_success with the phone and any referral link's id: APTI finds or
+     * creates the customer, and a new one is recorded as referred.
+     */
+    private static function track_login(int $user_id, bool $blocking): void
+    {
+        $body = ['event' => 'login_success', 'visitor_id' => self::visitor_id($user_id)];
+        $phone = self::user_phone($user_id);
         if ($phone !== '') {
             $body['customer'] = ['phone' => $phone];
         }
-        self::call('POST', '/sdk/v1/track', $body, false);
+        $ref = self::ref_id();
+        if ($ref !== '') {
+            $body['ref_id'] = $ref;
+        }
+        self::call('POST', '/sdk/v1/track', $body, $blocking);
+    }
+
+    /**
+     * ?ref_id=<referral id> on any page → kept in a cookie for the next login
+     * (set in the browser, so cached pages work too).
+     */
+    public static function ref_script(): void
+    {
+        $cookie = self::REF_COOKIE;
+        $max_age = self::REF_COOKIE_DAYS * DAY_IN_SECONDS;
+        echo "<script>(function(){try{var r=new URLSearchParams(location.search).get('ref_id');"
+            . "if(r&&/^[0-9a-f-]{36}$/i.test(r)){document.cookie='{$cookie}='+r+';path=/;max-age={$max_age};SameSite=Lax'+(location.protocol==='https:'?';Secure':'');}"
+            . "}catch(e){}})();</script>\n";
+    }
+
+    /* -------------------------------------------------- referral cashback */
+
+    /** The customer's referral id and cashback from APTI (cached briefly in the cart session), or null. */
+    private static function cashback_balance(int $user_id, bool $fresh = false): ?array
+    {
+        $phone = self::user_phone($user_id);
+        if ($phone === '') {
+            return null;
+        }
+        $session = function_exists('WC') && WC() ? WC()->session : null;
+        if (!$fresh && $session) {
+            $cached = $session->get(self::CASHBACK_SESSION);
+            if (is_array($cached) && ($cached['phone'] ?? '') === $phone && time() - (int) ($cached['at'] ?? 0) < self::DISCOUNT_CACHE_SECONDS) {
+                return $cached['balance'];
+            }
+        }
+        $data = self::call('POST', '/sdk/v1/cashback/balance', ['mobile' => $phone]);
+        if ($session && $data !== null) {
+            $session->set(self::CASHBACK_SESSION, ['phone' => $phone, 'at' => time(), 'balance' => $data]);
+        }
+        return $data;
+    }
+
+    private static function forget_cashback(): void
+    {
+        if (function_exists('WC') && WC() && WC()->session) {
+            WC()->session->__unset(self::CASHBACK_SESSION);
+        }
+    }
+
+    /**
+     * The whole available balance off the order (whole rupees, at least ₹1
+     * left to pay), after the WhatsApp offer.
+     */
+    public static function apply_cashback($cart): void
+    {
+        if ((is_admin() && !wp_doing_ajax()) || !is_user_logged_in() || !$cart || $cart->is_empty()) {
+            return;
+        }
+        $balance = self::cashback_balance(get_current_user_id());
+        $available = floor((float) ($balance['available'] ?? 0));
+        if ($available <= 0) {
+            return;
+        }
+        $payable = (float) $cart->get_cart_contents_total() + (float) $cart->get_cart_contents_tax()
+            + (float) $cart->get_shipping_total() + (float) $cart->get_shipping_tax();
+        foreach ($cart->get_fees() as $fee) {
+            $payable += (float) $fee->amount;
+        }
+        $off = min($available, floor($payable - 1));
+        if ($off > 0) {
+            $cart->add_fee(self::CASHBACK_FEE_NAME, -$off, false);
+        }
+    }
+
+    /** The cashback fee on an order, or null. */
+    private static function cashback_fee(WC_Order $order): ?WC_Order_Item_Fee
+    {
+        foreach ($order->get_fees() as $fee) {
+            if ($fee->get_name() === self::CASHBACK_FEE_NAME) {
+                return $fee;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * The order took cashback: hold it on APTI for this order. If APTI holds
+     * less (the balance changed), the order gets that much; none → removed.
+     */
+    public static function reserve_cashback($order_or_id, $posted = null, $order = null): void
+    {
+        $order = $order instanceof WC_Order ? $order : ($order_or_id instanceof WC_Order ? $order_or_id : wc_get_order($order_or_id));
+        if (!$order || !$order->get_customer_id() || $order->get_meta('_apti_cashback_status') !== '') {
+            return;
+        }
+        $fee = self::cashback_fee($order);
+        if (!$fee) {
+            return;
+        }
+        self::forget_cashback();
+        $wanted = abs((float) $fee->get_total());
+        $phone = self::user_phone($order->get_customer_id());
+        $data = $phone === '' ? null : self::call('POST', '/sdk/v1/cashback/reserve', [
+            'mobile'     => $phone,
+            'booking_id' => (string) $order->get_id(),
+            'max_amount' => $wanted,
+        ]);
+        $held = round((float) ($data['amount'] ?? 0), 2);
+        if ($held <= 0) {
+            $order->remove_item($fee->get_id());
+        } elseif ($held < $wanted) {
+            $fee->set_amount((string) -$held);
+            $fee->set_total((string) -$held);
+            $fee->save();
+        }
+        if ($held < $wanted) {
+            $order->calculate_totals(false);
+        }
+        $order->update_meta_data('_apti_cashback_status', $held > 0 ? 'reserved' : 'none');
+        $order->update_meta_data('_apti_cashback_amount', $held);
+        $order->save();
+    }
+
+    /** Placed / paid: the held cashback is used. */
+    private static function confirm_cashback(WC_Order $order): void
+    {
+        if ($order->get_meta('_apti_cashback_status') !== 'reserved') {
+            return;
+        }
+        $data = self::call('POST', '/sdk/v1/cashback/confirm', ['booking_id' => (string) $order->get_id()]);
+        if ($data !== null) {
+            $order->update_meta_data('_apti_cashback_status', 'used');
+            $order->save();
+        }
+    }
+
+    /** Cancelled or failed before it was used: the hold is given back. */
+    public static function release_cashback($order_id): void
+    {
+        $order = wc_get_order($order_id);
+        if (!$order || $order->get_meta('_apti_cashback_status') !== 'reserved') {
+            return;
+        }
+        $data = self::call('POST', '/sdk/v1/cashback/release', ['booking_id' => (string) $order->get_id()]);
+        if ($data !== null) {
+            $order->update_meta_data('_apti_cashback_status', 'released');
+            $order->save();
+        }
+    }
+
+    /** My Account: cashback balance, referral id and the Refer & Earn link. */
+    public static function account_cashback(): void
+    {
+        $balance = self::cashback_balance(get_current_user_id(), true);
+        if (!$balance || empty($balance['referral_id'])) {
+            return;
+        }
+        $rupees = static function ($v): string {
+            return '₹' . number_format_i18n((float) $v, floor((float) $v) == (float) $v ? 0 : 2);
+        };
+        ?>
+        <div id="apti-cashback" style="margin:1.5em 0;padding:1em 1.25em;border:1px solid #e3e3e3;border-radius:8px">
+            <h3 style="margin-top:0">Referral cashback</h3>
+            <p style="margin:.25em 0">Available: <strong id="apti-cashback-available"><?php echo esc_html($rupees($balance['available'] ?? 0)); ?></strong>
+                <?php if ((float) ($balance['pending'] ?? 0) > 0) : ?> · Pending: <span id="apti-cashback-pending"><?php echo esc_html($rupees($balance['pending'])); ?></span><?php endif; ?></p>
+            <p style="margin:.25em 0">Your referral ID: <code id="apti-referral-id"><?php echo esc_html($balance['referral_id']); ?></code></p>
+            <p style="margin:.75em 0 0">Your available cashback comes off your next order automatically.
+                <a id="apti-refer-link" href="<?php echo esc_url(home_url('/refer/' . $balance['referral_id'])); ?>">Refer &amp; Earn</a></p>
+        </div>
+        <?php
+    }
+
+    /**
+     * /refer/<referral id> — where the order WhatsApp's "Refer & Earn" lands:
+     * opens WhatsApp's share screen with the customer's link. "me" = APTI
+     * hadn't seen them log in when it sent the message; their id is looked
+     * up once they're logged in.
+     */
+    public static function refer_page(): void
+    {
+        $path = trim((string) wp_parse_url(isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '', PHP_URL_PATH), '/');
+        if (!preg_match('#^refer/([^/]+)$#', $path, $m)) {
+            return;
+        }
+        $id = strtolower(sanitize_text_field($m[1]));
+        $link = '';
+        $note = '';
+        if ($id === 'me') {
+            if (!is_user_logged_in()) {
+                $note = 'login';
+            } else {
+                $balance = self::cashback_balance(get_current_user_id(), true);
+                $id = (string) ($balance['referral_id'] ?? '');
+                if ($id === '') {
+                    $note = 'pending';
+                }
+            }
+        } elseif (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/', $id)) {
+            return; // not ours: the normal 404
+        }
+        if ($note === '') {
+            $link = add_query_arg(['utm_source' => 'whatsapp', 'utm_medium' => 'apti_referral', 'ref_id' => $id], home_url('/'));
+        }
+        $message = 'Hey! Shop pure, natural products at ' . self::BRAND . ' using my link: ' . $link;
+        $share = 'https://wa.me/?text=' . rawurlencode($message);
+
+        global $wp_query;
+        $wp_query->is_404 = false;
+        status_header(200);
+        nocache_headers();
+        get_header();
+        ?>
+        <div id="refer-page" style="max-width:480px;margin:3em auto;padding:0 16px;text-align:center">
+            <?php if ($note === 'login') : ?>
+                <h1>Refer a friend</h1>
+                <p>Log in to get your referral link.</p>
+                <p><a class="button" href="<?php echo esc_url(home_url() . '?login=true&redirect_to&page=1'); ?>">Log in</a></p>
+            <?php elseif ($note === 'pending') : ?>
+                <h1>Your referral link is being set up</h1>
+                <p>Please try again in a minute.</p>
+            <?php else : ?>
+                <h1>Refer a friend</h1>
+                <p>Opening WhatsApp so you can pick who to send it to…</p>
+                <p id="refer-message" style="text-align:left;border:1px solid #e3e3e3;border-radius:8px;padding:1em"><?php echo esc_html($message); ?></p>
+                <p><a id="refer-whatsapp-btn" class="button" href="<?php echo esc_url($share); ?>">Share on WhatsApp</a></p>
+                <p><button id="refer-copy-btn" type="button" class="button alt" data-link="<?php echo esc_attr($link); ?>">Copy my link</button></p>
+                <script>
+                (function () {
+                  var share = <?php echo wp_json_encode($share); ?>;
+                  var btn = document.getElementById('refer-copy-btn');
+                  btn.addEventListener('click', function () {
+                    if (navigator.clipboard) navigator.clipboard.writeText(btn.getAttribute('data-link')).then(function () { btn.textContent = 'Link copied'; });
+                  });
+                  window.location.href = share;
+                })();
+                </script>
+            <?php endif; ?>
+        </div>
+        <?php
+        get_footer();
+        exit;
     }
 
     /* --------------------------------------------------- cart recovery */
@@ -249,12 +548,15 @@ JS);
 
         $user = get_userdata($user_id);
         $name = trim((string) $user->first_name) ?: $user->display_name;
-        $data = self::call('POST', '/sdk/v1/engage/cart-recovery', [
-            'template'      => self::TEMPLATE,
-            'mobile'        => $phone,
-            'booking_id'    => 'cart-' . $user_id . '-' . current_time('Ymd'),
-            'customer_name' => $name !== '' ? $name : null,
-        ]);
+        $body = [
+            'template'   => self::TEMPLATE,
+            'mobile'     => $phone,
+            'booking_id' => 'cart-' . $user_id . '-' . current_time('Ymd'),
+        ];
+        if ($name !== '') {
+            $body['customer_name'] = $name; // optional: APTI says "User" without it
+        }
+        $data = self::call('POST', '/sdk/v1/engage/cart-recovery', $body);
         if (!empty($data['sent']) && WC()->session) {
             // The discount is theirs now — look it up again on the next cart view.
             WC()->session->__unset(self::SESSION_KEY);
@@ -330,7 +632,12 @@ JS);
 
     /* ----------------------------------------------------------- payment */
 
-    /** A paid order → APTI `payment_completed` (once per order). */
+    /**
+     * A placed order (COD: when it's placed; online: when paid) → once per
+     * order: its held cashback is used, APTI `payment_completed` (APTI adds
+     * the referral cashback rule, so the referrer is credited), the payment
+     * for APTI's Referral payments, and the order-confirmed WhatsApp.
+     */
     public static function payment_completed($order_id): void
     {
         $order = wc_get_order($order_id);
@@ -340,13 +647,21 @@ JS);
         $order->update_meta_data('_apti_payment_tracked', 'yes');
         $order->save();
 
+        self::confirm_cashback($order);
+
+        $user_id = (int) $order->get_customer_id();
+        if ($user_id) {
+            // The customer record must exist before the payment is counted
+            // (a long-lived session may never have logged in since): same
+            // visitor id, so APTI keeps the two in order.
+            self::track_login($user_id, true);
+        }
         $body = [
             'event'       => 'payment_completed',
             'order_id'    => (string) $order->get_id(),
             'value'       => (float) $order->get_total(),
             'occurred_at' => gmdate('Y-m-d\TH:i:s\Z'),
         ];
-        $user_id = (int) $order->get_customer_id();
         if ($user_id) {
             $body['visitor_id'] = self::visitor_id($user_id);
         }
@@ -355,6 +670,51 @@ JS);
             $body['customer'] = ['phone' => $phone];
         }
         self::call('POST', '/sdk/v1/track', $body);
+
+        if ($user_id && $phone !== '') {
+            self::call('POST', '/sdk/v1/cashback/payment', [
+                'mobile'      => $phone,
+                'booking_id'  => (string) $order->get_id(),
+                'amount_paid' => (float) $order->get_total(),
+            ], false);
+        }
+        self::order_confirmed($order, $phone);
+        self::forget_cashback();
+    }
+
+    /** mittipure_order_confirm to the customer's mobile (APTI sends it once per order). */
+    private static function order_confirmed(WC_Order $order, string $phone): void
+    {
+        $mobile = self::india_mobile($phone !== '' ? $phone : (string) $order->get_billing_phone());
+        if ($mobile === '') {
+            return;
+        }
+        $names = [];
+        foreach ($order->get_items() as $item) {
+            $names[] = $item->get_name();
+        }
+        if (!$names) {
+            return;
+        }
+        $items = $names[0] . (count($names) > 1 ? ' and ' . (count($names) - 1) . ' more' : '');
+        if (function_exists('mb_strimwidth')) {
+            $items = mb_strimwidth($items, 0, self::ITEMS_MAX_CHARS, '…');
+        }
+        $total = (float) $order->get_total();
+        $name = trim((string) $order->get_billing_first_name());
+        $body = [
+            'mobile'   => $mobile,
+            'order_id' => (string) $order->get_order_number(),
+            'items'    => $items,
+            'total'    => number_format($total, floor($total) == $total ? 0 : 2),
+            'delivery' => wp_date('j M Y', time() + self::DELIVERY_DAYS * DAY_IN_SECONDS),
+        ];
+        if ($name !== '') {
+            $body['customer_name'] = $name;
+        }
+        $data = self::call('POST', '/sdk/v1/engage/order-confirmed', $body);
+        $order->update_meta_data('_apti_order_whatsapp', !empty($data['sent']) ? 'sent' : ($data['reason'] ?? 'failed'));
+        $order->save();
     }
 }
 
