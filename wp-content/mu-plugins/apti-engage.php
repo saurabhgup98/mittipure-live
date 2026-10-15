@@ -505,11 +505,38 @@ final class Apti_Engage
         // 25 s on the checkout without placing the order, or leaving it
         // (tab closed or another page) → the cart recovery WhatsApp. Placing
         // the order isn't leaving; a failed attempt (checkout_error) is.
+        // For testing, a notice (once per tab) and a status line say to wait
+        // for that message and reply Yes/OK to it before ordering: both are
+        // Marketing templates, and the reply is what lets the order
+        // confirmation through.
         wp_add_inline_script('apti-engage', <<<JS
 (function () {
   var c = {$config};
   var sent = false;
   var placing = false;
+  var status = document.createElement('div');
+  status.id = 'apti-whatsapp-status';
+  status.setAttribute('role', 'status');
+  status.style.cssText = 'margin:0 0 1.25em;padding:.85em 1.1em;border-radius:8px;background:#eef6ea;border:1px solid #cfe3c4;color:#24351f;font-size:.95em;line-height:1.5';
+  function say(html) { status.innerHTML = html; }
+  var host = document.querySelector('form.checkout') || document.querySelector('.woocommerce');
+  if (host) host.parentNode.insertBefore(status, host);
+  var left = Math.round(c.afterMs / 1000);
+  function tick() {
+    if (sent || placing) return;
+    say('<strong>Testing WhatsApp:</strong> stay on this page — the cart message reaches your WhatsApp in <strong>' + left + ' s</strong>.');
+    if (left-- > 0) setTimeout(tick, 1000);
+  }
+  tick();
+  function result(r) {
+    if (r && r.sent) {
+      say('<strong>Cart message sent on WhatsApp.</strong> Reply <strong>Yes</strong> or <strong>OK</strong> to it, wait about 1 minute, then place your order to get the order confirmation there.');
+    } else if (r && r.reason === 'already_sent_today') {
+      say("<strong>Today's cart message was already sent.</strong> If you haven't yet, reply <strong>Yes</strong> or <strong>OK</strong> to it on WhatsApp, wait about 1 minute, then place your order.");
+    } else {
+      say('<strong>No cart message this time</strong>' + (r && r.reason ? ' (' + String(r.reason).replace(/[<>&]/g, '') + ')' : '') + '. You can still place your order.');
+    }
+  }
   function send(beacon) {
     if (sent || placing) return;
     sent = true;
@@ -519,9 +546,42 @@ final class Apti_Engage
     try {
       if (beacon && navigator.sendBeacon && navigator.sendBeacon(c.url, data)) return;
     } catch (e) {}
-    fetch(c.url, { method: 'POST', body: data, credentials: 'same-origin', keepalive: true }).catch(function () {});
+    say('Sending the cart message on WhatsApp…');
+    fetch(c.url, { method: 'POST', body: data, credentials: 'same-origin', keepalive: true })
+      .then(function (res) { return res.json(); })
+      .then(result)
+      .catch(function () { result(null); });
   }
   setTimeout(function () { send(false); }, c.afterMs);
+
+  var seenKey = 'apti_whatsapp_notice_seen';
+  var seen = false;
+  try { seen = !!sessionStorage.getItem(seenKey); } catch (e) {}
+  if (!seen) {
+    var box = document.createElement('div');
+    box.id = 'apti-whatsapp-notice';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);padding:16px';
+    box.innerHTML = '<div style="width:100%;max-width:440px;background:#fff;border-radius:16px;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,.25);color:#24351f;font-size:15px;line-height:1.55">'
+      + '<p style="margin:0;font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#7a8b3a">Before you order</p>'
+      + '<h2 style="margin:4px 0 14px;font-size:20px">One quick step to complete the test</h2>'
+      + '<ol style="margin:0 0 14px 1.2em;padding:0">'
+      + '<li style="margin-bottom:8px">Stay on this page for about <strong>25 seconds</strong>. You\'ll get the cart message on WhatsApp.</li>'
+      + '<li style="margin-bottom:8px">Reply <strong>Yes</strong> or <strong>OK</strong> to that message. This lets us send your order confirmation there.</li>'
+      + '<li>After replying, wait <strong>about 1 minute</strong>, then place your order.</li>'
+      + '</ol>'
+      + '<p style="margin:0;padding:10px 12px;border-radius:10px;background:#f6f1e7">You\'ll then receive the order confirmation on WhatsApp, with your referral link.</p>'
+      + '<button type="button" id="apti-whatsapp-notice-ok" class="button" style="margin-top:18px;width:100%;height:46px;border:0;border-radius:10px;background:#0b7a3e;color:#fff;font-weight:600">OK</button>'
+      + '</div>';
+    document.body.appendChild(box);
+    var ok = document.getElementById('apti-whatsapp-notice-ok');
+    ok.focus();
+    ok.addEventListener('click', function () {
+      try { sessionStorage.setItem(seenKey, '1'); } catch (e) {}
+      box.parentNode.removeChild(box);
+    });
+  }
   document.addEventListener('submit', function (e) {
     if (e.target && e.target.matches && e.target.matches('form.checkout')) placing = true;
   }, true);
