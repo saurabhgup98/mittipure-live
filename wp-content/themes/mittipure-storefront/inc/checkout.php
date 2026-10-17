@@ -102,12 +102,18 @@ add_filter('woocommerce_order_button_html', function () {
     );
 });
 
-/* ---------- Easebuzz slot ---------- */
+/* ---------- Razorpay + Easebuzz slots (test mode) ---------- */
 
+// The real Razorpay plugin has no keys here, so its gateway is swapped for a
+// test-mode one with the same id; Easebuzz pays the same way.
 add_filter('woocommerce_payment_gateways', function (array $gateways) {
-    if (!class_exists('Gram_Gateway_Easebuzz') && class_exists('WC_Payment_Gateway')) {
-        require_once __DIR__ . '/class-gram-gateway-easebuzz.php';
+    if (!class_exists('WC_Payment_Gateway')) {
+        return $gateways;
     }
+    require_once __DIR__ . '/class-gram-gateway-test-pay.php';
+    require_once __DIR__ . '/class-gram-gateway-easebuzz.php';
+    $gateways   = array_values(array_diff($gateways, ['WC_Razorpay']));
+    $gateways[] = 'Gram_Gateway_Test_Pay';
     $gateways[] = 'Gram_Gateway_Easebuzz';
     return $gateways;
-});
+}, 99);

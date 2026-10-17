@@ -190,7 +190,8 @@ $gram_cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
 						<div class="elementor-element elementor-element-7c89fdbe elementor-nav-menu__align-flex-start elementor-widget elementor-widget-tbay-nav-menu" data-id="7c89fdbe" data-element_type="widget" data-widget_type="tbay-nav-menu.default">
 							<div class="elementor-widget-container">
 								<div class="tbay-element tbay-element-nav-menu">
-									<nav class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal tbay-horizontal" data-id="gramiyum-menu">
+									<button type="button" class="gram-nav-toggle" aria-expanded="false" aria-controls="gram-main-nav"><span class="gram-burger" aria-hidden="true"></span>Menu</button>
+									<nav id="gram-main-nav"class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal tbay-horizontal" data-id="gramiyum-menu">
 										<?php gram_main_menu(); ?>
 									</nav>
 								</div>

@@ -16,11 +16,13 @@ require_once __DIR__ . '/inc/checkout.php';
 /* ---------- assets ---------- */
 
 add_action('wp_enqueue_scripts', function () {
-    $ver = wp_get_theme()->get('Version');
+    // Theme version + file time, so browsers pick up asset edits after a deploy.
+    $dir = get_stylesheet_directory() . '/assets/';
+    $ver = static fn(string $f): string => wp_get_theme()->get('Version') . '.' . filemtime($dir . $f);
     wp_enqueue_style('gram-fonts', 'https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap', [], null);
-    wp_enqueue_style('gram-header', get_stylesheet_directory_uri() . '/assets/header.css', ['storefront-style'], $ver);
-    wp_enqueue_style('gram-shop', get_stylesheet_directory_uri() . '/assets/shop.css', ['storefront-woocommerce-style'], $ver);
-    wp_enqueue_script('gram-shop', get_stylesheet_directory_uri() . '/assets/shop.js', ['jquery'], $ver, true);
+    wp_enqueue_style('gram-header', get_stylesheet_directory_uri() . '/assets/header.css', ['storefront-style'], $ver('header.css'));
+    wp_enqueue_style('gram-shop', get_stylesheet_directory_uri() . '/assets/shop.css', ['storefront-woocommerce-style'], $ver('shop.css'));
+    wp_enqueue_script('gram-shop', get_stylesheet_directory_uri() . '/assets/shop.js', ['jquery'], $ver('shop.js'), true);
     // Classic mini-cart fragments, so the header cart count/total update after add-to-cart.
     wp_enqueue_script('wc-cart-fragments');
 }, 20);
